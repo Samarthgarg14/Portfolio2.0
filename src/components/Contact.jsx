@@ -18,10 +18,10 @@ const Contact = () => {
 
         // Replace with your actual Service ID, Template ID, and Public Key
         emailjs.sendForm(
-            'YOUR_SERVICE_ID',
-            'YOUR_TEMPLATE_ID',
+            'service_jvo7cru',
+            'template_dbv52lz',
             formRef.current,
-            'YOUR_PUBLIC_KEY'
+            'l5IXZQMdArphgGAy9'
         )
             .then((result) => {
                 setIsSubmitting(false);
