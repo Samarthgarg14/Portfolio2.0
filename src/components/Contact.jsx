@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
 import Section from './Section';
 import { portfolioData } from '../data/portfolioData';
@@ -9,18 +10,29 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
+    const formRef = useRef();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSuccess(true);
-            setFormState({ name: '', email: '', message: '' });
-
-            setTimeout(() => setIsSuccess(false), 5000);
-        }, 1500);
+        // Replace with your actual Service ID, Template ID, and Public Key
+        emailjs.sendForm(
+            'YOUR_SERVICE_ID',
+            'YOUR_TEMPLATE_ID',
+            formRef.current,
+            'YOUR_PUBLIC_KEY'
+        )
+            .then((result) => {
+                setIsSubmitting(false);
+                setIsSuccess(true);
+                setFormState({ name: '', email: '', message: '' });
+                setTimeout(() => setIsSuccess(false), 5000);
+            }, (error) => {
+                setIsSubmitting(false);
+                console.error(error.text);
+                alert("Failed to send message. Please try again.");
+            });
     };
 
     const handleChange = (e) => {
@@ -79,7 +91,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="glass p-8 rounded-2xl relative overflow-hidden"
                 >
-                    <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 relative z-10">
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
                             <input

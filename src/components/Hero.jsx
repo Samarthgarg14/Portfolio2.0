@@ -7,12 +7,13 @@ const Hero = () => {
     const { hero, personal } = portfolioData;
     const [textIndex, setTextIndex] = useState(0);
 
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
         checkMobile();
         window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
