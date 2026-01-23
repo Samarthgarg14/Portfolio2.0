@@ -85,7 +85,7 @@ const Hero = () => {
                             View Projects
                             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </a>
-                        <a href="#" className="flex items-center gap-2 bg-transparent border border-white/20 px-8 py-4 rounded-full text-white hover:bg-white/10 transition-all font-medium">
+                        <a href={personal.resume} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-transparent border border-white/20 px-8 py-4 rounded-full text-white hover:bg-white/10 transition-all font-medium">
                             <Download size={20} />
                             Resume
                         </a>

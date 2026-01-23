@@ -12,6 +12,7 @@ export const portfolioData = {
         instagram: "https://www.instagram.com/samarth_garg14/",
         whatsapp: "https://wa.me/919650984465",
         leetcode: "https://leetcode.com/u/KfBemvPfpA/",
+        resume: "https://drive.google.com/file/d/1yMOQYL0qNeKDYjs5JrtAT3Xf3DfDIL9L/view?usp=drive_link",
         stats: {
             cgpa: "8.62",
             projects: "4+",
