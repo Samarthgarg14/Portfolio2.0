@@ -127,9 +127,9 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="relative block mx-auto mt-12 lg:mt-0"
+                    className="relative flex justify-center mx-auto mt-12 lg:mt-0"
                 >
-                    <div className="relative w-[380px] h-[550px]">
+                    <div className="relative w-full max-w-[380px] h-[550px]">
                         {/* Profile Card Container with Tilt/Glow */}
                         <div className="relative w-full h-full">
                             <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-[2rem] blur-2xl opacity-20 animate-pulse"></div>
