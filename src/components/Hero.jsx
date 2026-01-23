@@ -7,9 +7,21 @@ const Hero = () => {
     const { hero, personal } = portfolioData;
     const [textIndex, setTextIndex] = useState(0);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+    const y1Base = useTransform(scrollY, [0, 500], [0, 200]);
+    const y2Base = useTransform(scrollY, [0, 500], [0, -150]);
+
+    const y1 = isMobile ? 0 : y1Base;
+    const y2 = isMobile ? 0 : y2Base;
 
     // Use the longest text to set the width of the placeholder
     const longestText = hero.rotatingText.reduce(
