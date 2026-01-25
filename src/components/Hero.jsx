@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, Mail, Instagram, MessageCircle, Code2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
-import profileImg from '../data/profile.jpeg';
+import profileImg from '../data/profile.png';
 
 const Hero = () => {
     const { hero, personal } = portfolioData;
