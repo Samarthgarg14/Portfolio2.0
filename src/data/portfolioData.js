@@ -11,7 +11,7 @@ export const portfolioData = {
         linkedin: "https://www.linkedin.com/in/samarth-garg-997235240/",
         instagram: "https://www.instagram.com/samarth_garg14/",
         whatsapp: "https://wa.me/919650984465",
-        leetcode: "https://leetcode.com/u/KfBemvPfpA/",
+        leetcode: "https://leetcode.com/u/Samarth_1426/",
         resume: "https://drive.google.com/file/d/1yMOQYL0qNeKDYjs5JrtAT3Xf3DfDIL9L/view?usp=drive_link",
         stats: {
             cgpa: "8.62",
