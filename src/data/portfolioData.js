@@ -41,7 +41,7 @@ export const portfolioData = {
             { name: "NumPy / Pandas", icon: Database, category: "Libraries" },
             { name: "Matplotlib / Seaborn", icon: Layout, category: "Libraries" },
             { name: "Scikit-learn", icon: Code2, category: "Libraries" },
-            { name: "DSA / OOP", icon: Terminal, category: "Core" }
+            { name: "DSA / OOPS", icon: Terminal, category: "Core" }
         ],
         soft: [
             "Problem-Solving", "Strategic Thinking", "Team Collaboration", "Leadership", "Communication"
