@@ -143,6 +143,7 @@ const Hero = () => {
                                         <div className="w-full h-full rounded-full bg-dark flex items-center justify-center overflow-hidden relative">
                                             <span className="text-6xl font-bold text-gray-700 select-none">SG</span>
                                             {/* Add real image here if available: <img src={url} className="w-full h-full object-cover" /> */}
+                                            <img src="./data/profile.jpeg" className="w-full h-full object-cover" />
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-bold text-white mb-1">{personal.name}</h3>

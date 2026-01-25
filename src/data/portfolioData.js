@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code2, Database, L
 export const portfolioData = {
     personal: {
         name: "Samarth Garg",
-        headline: "Aspiring Software Development Engineer • C++ • Python • Data Science",
+        headline: "Aspiring Software Engineer • C++ • Python • Data Science",
         location: "Ghaziabad, Uttar Pradesh",
         email: "samarthgarg14@gmail.com",
         phone: "+91 9650984465",
@@ -21,7 +21,7 @@ export const portfolioData = {
     },
     hero: {
         title: "Hi, I'm Samarth Garg",
-        subtitle: "B.Tech CSE | 3rd Year | Aspiring SDE",
+        subtitle: "B.Tech CSE | 3rd Year | Aspiring Software Engineer",
         rotatingText: [
             "AI-backed tools",
             "Data dashboards",
