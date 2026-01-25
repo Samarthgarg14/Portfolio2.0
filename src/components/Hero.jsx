@@ -158,38 +158,38 @@ const Hero = () => {
                                 </div>
 
                                 {/* Social Action Bar */}
-                                <div className="flex flex-wrap justify-center gap-2 w-full border-t border-white/10 pt-4 px-1">
-                                    <a href={personal.github} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                <div className="flex flex-nowrap justify-between md:justify-center gap-1 md:gap-2 w-full border-t border-white/10 pt-4 px-0 md:px-1">
+                                    <a href={personal.github} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <Github size={18} />
                                         </div>
                                         <span className="text-[8px] uppercase tracking-wider font-semibold opacity-70 group-hover/icon:opacity-100">GitHub</span>
                                     </a>
-                                    <a href={personal.linkedin} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                    <a href={personal.linkedin} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <Linkedin size={18} />
                                         </div>
                                         <span className="text-[8px] uppercase tracking-wider font-semibold opacity-70 group-hover/icon:opacity-100">Linked</span>
                                     </a>
-                                    <a href={`mailto:${personal.email}`} className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                    <a href={`mailto:${personal.email}`} className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <Mail size={18} />
                                         </div>
                                         <span className="text-[8px] uppercase tracking-wider font-semibold opacity-70 group-hover/icon:opacity-100">Email</span>
                                     </a>
-                                    <a href={personal.instagram} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                    <a href={personal.instagram} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <Instagram size={18} />
                                         </div>
                                         <span className="text-[8px] uppercase tracking-wider font-semibold opacity-70 group-hover/icon:opacity-100">Insta</span>
                                     </a>
-                                    <a href={personal.whatsapp} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                    <a href={personal.whatsapp} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <MessageCircle size={18} />
                                         </div>
                                         <span className="text-[8px] uppercase tracking-wider font-semibold opacity-70 group-hover/icon:opacity-100">WA</span>
                                     </a>
-                                    <a href={personal.leetcode} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon w-[46px]">
+                                    <a href={personal.leetcode} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1.5 text-gray-400 hover:text-white transition-colors group/icon flex-1 min-w-0 md:w-[46px] md:flex-none">
                                         <div className="p-2.5 rounded-full bg-white/5 group-hover/icon:bg-white/10 transition-colors shadow-lg shadow-black/20">
                                             <Code2 size={18} />
                                         </div>
