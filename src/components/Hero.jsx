@@ -90,7 +90,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="text-gray-400 text-lg md:text-xl max-w-lg mb-10 leading-relaxed">
-                        {hero.subtitle}. Specializing in scalable systems, data intelligence, and AI-driven solutions.
+                        {hero.subtitle} Specializing in scalable systems, data intelligence, and AI-driven solutions.
                     </p>
 
                     <div className="flex flex-wrap gap-4 mb-14">
@@ -146,7 +146,7 @@ const Hero = () => {
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-bold text-white mb-1">{personal.name}</h3>
-                                    <p className="text-primary text-sm font-medium tracking-wide mb-6">Aspiring SDE</p>
+                                    <p className="text-primary text-sm font-medium tracking-wide mb-6">Aspiring Software Engineer</p>
 
                                     <div className="w-full flex flex-wrap justify-center gap-2 mb-6">
                                         {['C++', 'Python', 'Data Science'].map((tag) => (
