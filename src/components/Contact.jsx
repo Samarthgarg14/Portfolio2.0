@@ -18,10 +18,10 @@ const Contact = () => {
 
         // Replace with your actual Service ID, Template ID, and Public Key
         emailjs.sendForm(
-            'service_jvo7cru',
-            'template_dbv52lz',
+            import.meta.env.VITE_EMAILJS_SERVICE_ID,
+            import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
             formRef.current,
-            'l5IXZQMdArphgGAy9'
+            import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         )
             .then((result) => {
                 setIsSubmitting(false);
