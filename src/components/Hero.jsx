@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, Mail, Instagram, MessageCircle, Code2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import profileImg from '../data/profile.jpeg';
 
 const Hero = () => {
     const { hero, personal } = portfolioData;
@@ -141,7 +142,7 @@ const Hero = () => {
                                 <div className="relative z-10 w-full flex flex-col items-center">
                                     <div className="w-64 h-64 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary mb-6 shadow-2xl shadow-primary/20">
                                         <div className="w-full h-full rounded-full bg-dark flex items-center justify-center overflow-hidden relative">
-                                            <img src="./data/profile.jpeg" className="w-full h-full object-cover" />
+                                            <img src={profileImg} alt={personal.name} className="w-full h-full object-cover" />
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-bold text-white mb-1">{personal.name}</h3>
