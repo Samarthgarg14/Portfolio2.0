@@ -14,7 +14,7 @@ export const portfolioData = {
         leetcode: "https://leetcode.com/u/Samarth_1426/",
         resume: "https://drive.google.com/file/d/1yMOQYL0qNeKDYjs5JrtAT3Xf3DfDIL9L/view?usp=drive_link",
         stats: {
-            cgpa: "8.62",
+            cgpa: "8.55",
             projects: "4+",
             skills: "C++ | Python | Power BI | DSA"
         }
