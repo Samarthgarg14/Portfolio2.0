@@ -130,7 +130,7 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="relative flex justify-center mx-auto mt-12 lg:mt-0"
                 >
-                    <div className="relative w-full max-w-[380px] h-[550px]">
+                    <div className="relative w-full max-w-[420px] h-[600px]">
                         {/* Profile Card Container with Tilt/Glow */}
                         <div className="relative w-full h-full">
                             <div className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-[2rem] blur-2xl opacity-20 animate-pulse"></div>
@@ -140,9 +140,9 @@ const Hero = () => {
                                 <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
 
                                 <div className="relative z-10 w-full flex flex-col items-center">
-                                    <div className="w-64 h-64 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary mb-6 shadow-2xl shadow-primary/20 mx-auto">
+                                    <div className="w-72 h-72 rounded-full p-1 bg-gradient-to-tr from-primary to-secondary mb-6 shadow-2xl shadow-primary/20 mx-auto transition-all duration-300">
                                         <div className="w-full h-full rounded-full bg-dark flex items-center justify-center overflow-hidden relative">
-                                            <img src={profileImg} alt={personal.name} className="w-full h-full object-cover object-center" />
+                                            <img src={profileImg} alt={personal.name} className="w-full h-full object-cover object-[50%_10%]" />
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-bold text-white mb-1">{personal.name}</h3>
