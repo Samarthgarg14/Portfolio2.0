@@ -105,7 +105,7 @@ const Experience = () => {
     return (
         <div id="experience">
             {/* Training */}
-            <Section title="Training & Internships" className="bg-white/[0.015]">
+            <Section title="Training" className="bg-white/[0.015]">
                 <div className="max-w-3xl mx-auto ml-6 md:ml-auto">
                     {training.map((item, idx) => (
                         <TimelineItem
