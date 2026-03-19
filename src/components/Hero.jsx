@@ -217,7 +217,7 @@ const Hero = () => {
                         {[
                             { value: personal.stats.cgpa, label: 'CGPA' },
                             { value: personal.stats.projects, label: 'Projects' },
-                            { value: personal.stats.certificates, label: 'Certificates' },
+                            { value: personal.stats.Certificates, label: 'Certificates' },
                         ].map(({ value, label }) => (
                             <div key={label}>
                                 <div className="text-3xl font-bold text-white mb-1 font-heading">{value}</div>
