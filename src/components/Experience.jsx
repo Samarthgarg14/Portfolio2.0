@@ -100,7 +100,7 @@ const CardItem = ({ title, subtitle, date, delay, link }) => (
 );
 
 const Experience = () => {
-    const { training, certifications, extracurricular, education } = portfolioData;
+    const { training, certificates, extracurricular, education } = portfolioData;
 
     return (
         <div id="experience">
@@ -122,10 +122,10 @@ const Experience = () => {
                 </div>
             </Section>
 
-            {/* Certifications */}
-            <Section title="Certifications">
+            {/* certificates */}
+            <Section title="certificates">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {certifications.map((cert, idx) => (
+                    {certificates.map((cert, idx) => (
                         <CardItem
                             key={idx}
                             title={cert.title}

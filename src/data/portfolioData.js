@@ -121,7 +121,7 @@ export const portfolioData = {
             year: "Apr 2020 – Mar 2021"
         }
     ],
-    certifications: [
+    certificates: [
         { title: "Adobe India Hackathon", issuer: "Unstop", date: "Jul 2025", link: "https://drive.google.com/file/d/19Sj3vV7C1uzBKbYKTV5Hnn2_SbiifNBH/view?usp=drive_link" },
         { title: "Cloud Computing", issuer: "NPTEL (IIT Kharagpur)", date: "Apr 2025", link: "https://drive.google.com/file/d/1QF-EI1W9cOsALd2lAQwPAs0-uGLE7rYG/view?usp=drive_link" },
         { title: "CyberSleuth Ethical Hacking", issuer: "ETA Club LPU", date: "Sep 2023", link: "https://drive.google.com/file/d/1JBEyUyjnI9vFRj6W7jkfsHI2W-uobdgX/view?usp=drive_link" }
