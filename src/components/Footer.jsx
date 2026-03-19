@@ -11,38 +11,50 @@ const Footer = () => {
 
     useEffect(() => {
         const toggleVisibility = () => {
-            if (window.scrollY > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+            setIsVisible(window.scrollY > 300);
         };
-
         window.addEventListener('scroll', toggleVisibility);
         return () => window.removeEventListener('scroll', toggleVisibility);
     }, []);
 
     return (
-        <footer className="bg-dark border-t border-white/10 py-12 relative">
-            <div className="max-w-7xl mx-auto px-4 text-center">
-                <p className="flex items-center justify-center gap-2 text-gray-400 mb-4">
-                    © 2026 Samarth Garg • Built with <Heart size={16} className="text-red-500 fill-red-500" />
-                </p>
+        <footer className="relative border-t border-white/[0.07] py-10 overflow-hidden"
+            style={{ background: 'rgba(7, 11, 21, 0.95)' }}
+        >
+            {/* Gradient line top */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-                <AnimatePresence>
-                    {isVisible && (
-                        <motion.button
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0 }}
-                            onClick={scrollToTop}
-                            className="fixed bottom-8 right-8 bg-primary hover:bg-primary/80 text-dark p-3 rounded-full shadow-lg shadow-primary/20 transition-all z-40"
-                        >
-                            <ArrowUp size={24} />
-                        </motion.button>
-                    )}
-                </AnimatePresence>
+            <div className="max-w-7xl mx-auto px-4 text-center">
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="flex items-center justify-center gap-2 text-gray-500 text-sm"
+                >
+                    © 2026
+                    <span className="text-gradient font-semibold">Samarth Garg</span>
+                    •&nbsp;Built with
+                    <Heart size={14} className="text-red-500 fill-red-500 inline" />
+                </motion.p>
             </div>
+
+            {/* Scroll-to-top FAB */}
+            <AnimatePresence>
+                {isVisible && (
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0, y: 10 }}
+                        whileHover={{ scale: 1.12, boxShadow: '0 0 20px rgba(0, 243, 255, 0.5)' }}
+                        whileTap={{ scale: 0.93 }}
+                        onClick={scrollToTop}
+                        className="fixed bottom-8 right-8 bg-gradient-to-br from-primary to-secondary text-dark p-3.5 rounded-full shadow-2xl transition-all z-40"
+                    >
+                        <ArrowUp size={20} />
+                    </motion.button>
+                )}
+            </AnimatePresence>
         </footer>
     );
 };

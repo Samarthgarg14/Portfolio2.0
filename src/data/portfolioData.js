@@ -3,7 +3,7 @@ import { Github, Code2, Database, Layout, Terminal } from 'lucide-react';
 export const portfolioData = {
     personal: {
         name: "Samarth Garg",
-        headline: "Aspiring Software Engineer • C++ • Python • Data Science",
+        headline: "Software Engineer • C++ • Python • Data Science",
         location: "Ghaziabad, Uttar Pradesh",
         email: "samarthgarg14@gmail.com",
         phone: "+91 9650984465",
@@ -16,18 +16,18 @@ export const portfolioData = {
         stats: {
             cgpa: "8.55",
             projects: "4+",
+            certificates: "3+",
             skills: "C++ | Python | Power BI | DSA"
         }
     },
     hero: {
         title: "Hi, I'm Samarth Garg",
-        subtitle: "B.Tech CSE | 3rd Year | Aspiring Software Engineer",
+        subtitle: "B.Tech CSE | 3rd Year | Software Engineer",
         rotatingText: [
             "AI-backed tools",
             "Data dashboards",
             "Scalable systems",
             "Real-world products",
-            "Power BI insights"
         ]
     },
     about: "Strong in C/C++, Python, DSA, and OOPS. Builds AI tools, dashboards, and data-powered applications. Interested in scalable systems and internships. Loves problem-solving and real-world impact.",

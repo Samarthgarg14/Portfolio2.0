@@ -13,41 +13,52 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CommandPalette from './components/CommandPalette';
 
+/* ── Loader ── */
 const Loader = () => (
     <motion.div
         initial={{ opacity: 1 }}
-        exit={{ y: '-100%' }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="fixed inset-0 z-[9999] bg-dark flex flex-col items-center justify-center"
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+        style={{ background: '#070b15' }}
     >
-        <div className="relative">
+        <div className="relative mb-6">
             <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="w-20 h-20 rounded-full border-t-2 border-r-2 border-primary"
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'linear' }}
+                className="w-16 h-16 rounded-full border-t-2 border-r-2 border-primary"
             />
             <motion.div
                 animate={{ rotate: -360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="w-16 h-16 rounded-full border-b-2 border-l-2 border-secondary absolute top-2 left-2"
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'linear' }}
+                className="w-10 h-10 rounded-full border-b-2 border-l-2 border-secondary absolute top-3 left-3"
             />
         </div>
         <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6 text-xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+            transition={{ delay: 0.3 }}
+            className="text-base font-bold tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
         >
             SAMARTH
         </motion.div>
     </motion.div>
 );
 
+/* ── Page entry animation ── */
+const pageVariants = {
+    hidden: { opacity: 0, y: 16 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+};
+
 function App() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate initial load
         const timer = setTimeout(() => setLoading(false), 2000);
         return () => clearTimeout(timer);
     }, []);
@@ -58,29 +69,35 @@ function App() {
                 {loading && <Loader />}
             </AnimatePresence>
 
-            <div className={`min-h-screen transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
-                <ScrollProgress />
-                <ParticlesBackground />
+            <AnimatePresence>
+                {!loading && (
+                    <motion.div
+                        key="page"
+                        variants={pageVariants}
+                        initial="hidden"
+                        animate="show"
+                        className="min-h-screen gradient-bg"
+                    >
+                        <ScrollProgress />
+                        <ParticlesBackground />
+                        <div className="noise-bg" />
+                        <CustomCursor />
+                        <Navbar />
 
-                {/* Noise Texture Overlay */}
-                <div className="noise-bg"></div>
-                <CustomCursor />
+                        <main>
+                            <Hero />
+                            <About />
+                            <Skills />
+                            <Projects />
+                            <Experience />
+                            <Contact />
+                        </main>
 
-                <Navbar />
-
-                <main>
-                    <Hero />
-                    <About />
-                    <Skills />
-                    <Projects />
-                    {/* Experience includes Training, Certifications, Extracurricular, Education */}
-                    <Experience />
-                    <Contact />
-                </main>
-
-                <Footer />
-                <CommandPalette />
-            </div>
+                        <Footer />
+                        <CommandPalette />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }
