@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
     motion, AnimatePresence,
     useScroll, useTransform, useSpring, useMotionValue,
 } from 'framer-motion';
-import { ArrowRight, Download, Github, Linkedin, Mail, Code2 } from 'lucide-react';
-import { portfolioData } from '../data/portfolioData';
-import profileImg from '../assets/images/profile.jpeg';
+import { ArrowRight, Download } from 'lucide-react';
+import { GithubSingleIcon, LinkedinIcon, GmailIcon, LeetcodeIcon } from '../common/TechIcons';
+import Section, { fadeUp as sectionFadeUp } from '../common/Section';
+import { portfolioData } from '../../data/portfolioData';
+import profileImg from '../../assets/images/profile.jpeg';
 
 /* ─── shared easing ──────────────────────────────────────── */
 const EASE = [0.25, 0.46, 0.45, 0.94];
@@ -85,10 +87,10 @@ const Hero = () => {
     const glowOpacity = useTransform(progress, [0, 0.5, 1], [0.06, 0.1, 0.04]);
 
     const socials = [
-        { href: personal.github, icon: Github, label: 'GitHub' },
-        { href: personal.linkedin, icon: Linkedin, label: 'LinkedIn' },
-        { href: `mailto:${personal.email}`, icon: Mail, label: 'Email' },
-        { href: personal.leetcode, icon: Code2, label: 'LeetCode' },
+        { href: personal.github, icon: GithubSingleIcon, label: 'GitHub' },
+        { href: personal.linkedin, icon: LinkedinIcon, label: 'LinkedIn' },
+        { href: `mailto:${personal.email}`, icon: GmailIcon, label: 'Email' },
+        { href: personal.leetcode, icon: LeetcodeIcon, label: 'LeetCode' },
     ];
 
     return (
@@ -233,7 +235,7 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.88, y: 30 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-                    className="relative flex items-center justify-center mt-0 lg:mt-0 w-full ml-24"
+                    className="relative flex items-center justify-center mt-8 lg:mt-0 w-full lg:ml-24"
                 >
                     <div className="relative w-full max-w-[400px]">
                         {/* Outer glow */}

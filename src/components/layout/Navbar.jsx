@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, User, Code2, Briefcase, Mail, FolderGit2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { playClick, playHover } from '../utils/sounds';
+import { playClick, playHover } from '../../utils/sounds';
 
 const Navbar = () => {
     const [activeTab, setActiveTab] = useState('home');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         // Enforce dark mode
@@ -22,6 +23,8 @@ const Navbar = () => {
     ];
 
     useEffect(() => {
+        let isMouseNearTop = false;
+
         const handleScroll = () => {
             const sections = navLinks.map(link => document.querySelector(link.href));
             const scrollPosition = window.scrollY + 200;
@@ -31,10 +34,30 @@ const Navbar = () => {
                     setActiveTab(navLinks[index].id);
                 }
             });
+
+            if (window.scrollY < 50) {
+                setIsVisible(true);
+            } else if (!isMouseNearTop) {
+                setIsVisible(false);
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const handleMouseMove = (e) => {
+            isMouseNearTop = e.clientY < 100;
+            if (isMouseNearTop) {
+                setIsVisible(true);
+            } else if (window.scrollY >= 50) {
+                setIsVisible(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
     }, []);
 
     return (
@@ -42,9 +65,9 @@ const Navbar = () => {
             {/* Desktop Floating Navbar */}
             <motion.div
                 initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-1 p-2 rounded-full bg-dark/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-primary/10"
+                animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+                transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+                className="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-1 p-2 rounded-full bg-dark/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-primary/10 hover:opacity-100"
             >
                 {navLinks.map((link) => {
                     const isActive = activeTab === link.id;
@@ -84,14 +107,23 @@ const Navbar = () => {
             </motion.div>
 
             {/* Mobile Top Bar */}
-            <div className="fixed top-0 left-0 w-full z-50 md:hidden flex justify-between items-center p-4 bg-dark/80 backdrop-blur-md border-b border-white/10">
+            <motion.div 
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+                transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+                className="fixed top-0 left-0 w-full z-50 md:hidden flex justify-between items-center p-4 bg-dark/80 backdrop-blur-md border-b border-white/10"
+            >
                 <span className="font-bold text-xl tracking-tighter text-white">Samarth<span className="text-primary">.</span></span>
                 <div className="flex gap-4">
-                    <button onClick={() => setIsMobileMenuOpen(true)} className="text-white">
+                    <button 
+                        onClick={() => setIsMobileMenuOpen(true)} 
+                        className="text-white"
+                        aria-label="Open navigation menu"
+                    >
                         <Menu size={24} />
                     </button>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Mobile Menu Overlay */}
             < AnimatePresence >
@@ -105,6 +137,7 @@ const Navbar = () => {
                         <button
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="absolute top-6 right-6 text-gray-400 hover:text-white p-2"
+                            aria-label="Close navigation menu"
                         >
                             <X size={32} />
                         </button>

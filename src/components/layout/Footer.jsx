@@ -50,6 +50,7 @@ const Footer = () => {
                         whileTap={{ scale: 0.93 }}
                         onClick={scrollToTop}
                         className="fixed bottom-8 right-8 bg-gradient-to-br from-primary to-secondary text-dark p-3.5 rounded-full shadow-2xl transition-all z-40"
+                        aria-label="Scroll to top"
                     >
                         <ArrowUp size={20} />
                     </motion.button>

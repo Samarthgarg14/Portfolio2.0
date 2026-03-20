@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
-import Section, { fadeUp } from './Section';
-import { portfolioData } from '../data/portfolioData';
+import Section, { fadeUp } from '../common/Section';
+import { portfolioData } from '../../data/portfolioData';
 
 const inputClass =
     "w-full bg-white/[0.04] border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm " +

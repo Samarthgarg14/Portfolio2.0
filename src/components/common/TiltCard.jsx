@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-const TiltCard = ({ children, className = "", ...props }) => {
+const TiltCard = forwardRef(({ children, className = "", ...props }, ref) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -26,6 +26,7 @@ const TiltCard = ({ children, className = "", ...props }) => {
 
     return (
         <motion.div
+            ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ rotateY, rotateX, transformStyle: 'preserve-3d' }}
@@ -37,6 +38,6 @@ const TiltCard = ({ children, className = "", ...props }) => {
             </div>
         </motion.div>
     );
-};
+});
 
 export default TiltCard;

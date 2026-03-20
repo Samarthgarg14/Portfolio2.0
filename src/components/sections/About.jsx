@@ -1,7 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import Section, { fadeUp } from './Section';
-import { portfolioData } from '../data/portfolioData';
+import Section, { fadeUp } from '../common/Section';
+import { portfolioData } from '../../data/portfolioData';
 
 const About = () => {
     return (
@@ -20,7 +19,7 @@ const About = () => {
                 {/* Decorative glow */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-                <p className="text-lg md:text-xl text-gray-300 leading-[1.9] font-light relative z-10">
+                <p className="text-lg md:text-xl text-gray-300 leading-[1.9] font-light relative z-10 whitespace-pre-wrap text-justify">
                     {portfolioData.about}
                 </p>
             </motion.div>

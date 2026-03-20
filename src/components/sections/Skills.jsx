@@ -1,8 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import Section from './Section';
-import TiltCard from './TiltCard';
-import { portfolioData } from '../data/portfolioData';
+import Section from '../common/Section';
+import { DataStructuresIcon, AlgorithmsIcon } from '../common/TechIcons';
+import TiltCard from '../common/TiltCard';
+import { portfolioData } from '../../data/portfolioData';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,11 +65,11 @@ const Skills = () => {
                             <motion.div
                                 whileHover={{ scale: 1.15, rotate: 5 }}
                                 transition={{ type: 'spring', stiffness: 300 }}
-                                className="p-3 rounded-xl bg-white/5 group-hover:bg-primary/10 transition-colors duration-300"
+                                className="p-4 flex items-center justify-center rounded-xl bg-white/5 group-hover:bg-primary/10 transition-colors duration-300"
                             >
                                 <skill.icon
-                                    size={28}
-                                    className="text-gray-400 group-hover:text-primary transition-colors duration-300"
+                                    size={44}
+                                    className="text-gray-400 group-hover:text-primary transition-colors duration-300 mx-auto"
                                 />
                             </motion.div>
                             <span className="text-gray-400 text-sm font-medium group-hover:text-white transition-colors text-center leading-tight">

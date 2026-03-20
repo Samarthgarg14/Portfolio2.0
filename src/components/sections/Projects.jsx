@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, X, ChevronRight, ArrowUpRight } from 'lucide-react';
-import Section from './Section';
-import TiltCard from './TiltCard';
-import { portfolioData } from '../data/portfolioData';
-import { playClick, playSuccess } from '../utils/sounds';
+import Section from '../common/Section';
+import TiltCard from '../common/TiltCard';
+import { portfolioData } from '../../data/portfolioData';
+import { playClick, playSuccess } from '../../utils/sounds';
 
 const cardVariants = {
     hidden: { opacity: 0, y: 28, scale: 0.97 },
@@ -80,80 +80,34 @@ const Projects = () => {
                             animate="show"
                             exit="exit"
                             key={project.id}
-                            className="glass rounded-2xl group flex flex-col h-full overflow-hidden"
+                            className="relative glass rounded-2xl group flex flex-col h-[300px] md:h-[350px] overflow-hidden cursor-pointer border-0"
+                            onClick={() => { setSelectedProject(project); playSuccess(); }}
                         >
-                            <div className="flex flex-col h-full w-full p-6 md:p-8 bg-transparent">
-
-                                {/* Top row - badge + icon */}
-                                <div className="flex items-start justify-between mb-5">
-                                    <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 tracking-wide uppercase">
-                                        {project.category}
-                                    </span>
-                                    <motion.div
-                                        whileHover={{ rotate: 45, scale: 1.1 }}
-                                        transition={{ type: 'spring', stiffness: 300 }}
-                                        className="p-2 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                    >
-                                        <ArrowUpRight size={16} className="text-primary" />
-                                    </motion.div>
-                                </div>
-
-                                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300 leading-snug line-clamp-2">
-                                    {project.title}
-                                </h3>
-
-                                <p className="text-gray-400 mb-6 line-clamp-3 leading-relaxed text-sm md:text-base">
-                                    {project.summary}
-                                </p>
-
-                                {/* Tech badges */}
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {project.tech.map(t => (
-                                        <span
-                                            key={t}
-                                            className="text-xs text-gray-500 bg-white/[0.04] border border-white/[0.07] px-2.5 py-1 rounded-md font-mono"
-                                        >
-                                            {t}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {/* Footer */}
-                                <div className="mt-auto w-full flex justify-between items-center border-t border-white/[0.08] pt-5">
-                                    <div className="flex gap-5">
-                                        {project.links.live && (
-                                            <a
-                                                href={project.links.live}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="flex items-center gap-1.5 text-sm font-medium text-gray-400 hover:text-primary transition-colors duration-200"
-                                            >
-                                                <ExternalLink size={15} /> Live
-                                            </a>
-                                        )}
-                                        {project.links.github && (
-                                            <a
-                                                href={project.links.github}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="flex items-center gap-1.5 text-sm font-medium text-gray-400 hover:text-primary transition-colors duration-200"
-                                            >
-                                                <Github size={15} /> GitHub
-                                            </a>
-                                        )}
-                                    </div>
-                                    <motion.button
-                                        whileHover={{ x: 3 }}
-                                        onClick={() => { setSelectedProject(project); playSuccess(); }}
-                                        className="text-sm text-gray-500 hover:text-white flex items-center gap-1 transition-colors duration-200 font-medium"
-                                    >
-                                        Details <ChevronRight size={15} />
-                                    </motion.button>
-                                </div>
+                            <div className="absolute inset-3 z-0 overflow-hidden rounded-xl bg-[#0d1526]/50 border border-white/5">
+                                {project.image && (
+                                    <img 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" 
+                                    />
+                                )}
+                                {/* Dark gradient at the bottom to ensure text readability and create a deep fade */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black from-15% via-black/60 via-50% to-transparent" />
                             </div>
 
-                            {/* Hover gradient shimmer bar */}
-                            <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 rounded-full" />
+                            <div className="relative z-10 flex flex-col justify-end h-full w-full p-8 md:p-10 bg-transparent pointer-events-none">
+                                <h3 className="text-xl md:text-2xl font-extrabold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                                    {project.title}
+                                </h3>
+                                <div>
+                                    <span className="inline-block px-4 py-1.5 rounded-full bg-white text-black text-xs font-extrabold shadow-lg">
+                                        {project.category}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            {/* Hover shimmer optional */}
+                            <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/50 rounded-2xl transition-colors duration-500 pointer-events-none" />
                         </TiltCard>
                     ))}
                 </AnimatePresence>
@@ -186,6 +140,7 @@ const Projects = () => {
                                     transition={{ type: 'spring', stiffness: 300 }}
                                     onClick={() => setSelectedProject(null)}
                                     className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                                    aria-label="Close project details"
                                 >
                                     <X size={20} />
                                 </motion.button>
@@ -198,9 +153,12 @@ const Projects = () => {
                                 </h2>
                                 <div className="text-gray-500 text-sm mb-7">{selectedProject.date}</div>
 
-                                <p className="text-gray-300 leading-relaxed mb-8 text-[15px]">
-                                    {selectedProject.details}
-                                </p>
+                                <ul className="text-gray-300 leading-relaxed mb-8 text-[15px] list-disc pl-5 space-y-2">
+                                    {Array.isArray(selectedProject.details) 
+                                        ? selectedProject.details.map((point, i) => <li key={i}>{point}</li>)
+                                        : <li>{selectedProject.details}</li>
+                                    }
+                                </ul>
 
                                 <div className="mb-8">
                                     <h4 className="text-xs font-bold text-gray-500 uppercase tracking-[0.15em] mb-4">

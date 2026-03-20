@@ -1,8 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Briefcase, Award, BookOpen, ExternalLink } from 'lucide-react';
-import Section from './Section';
-import { portfolioData } from '../data/portfolioData';
+import Section from '../common/Section';
+import { portfolioData } from '../../data/portfolioData';
 
 const itemVariants = {
     hidden: { opacity: 0, x: -20 },
@@ -45,7 +44,13 @@ const TimelineItem = ({ title, subtitle, date, description, icon: Icon, delay, l
             <Calendar size={11} /> {date}
         </div>
         {description && (
-            <p className="text-gray-400 text-sm leading-relaxed mb-3">{description}</p>
+            Array.isArray(description) ? (
+                <ul className="text-gray-400 text-sm leading-relaxed mb-3 list-disc pl-4 space-y-1.5">
+                    {description.map((point, i) => <li key={i}>{point}</li>)}
+                </ul>
+            ) : (
+                <p className="text-gray-400 text-sm leading-relaxed mb-3">{description}</p>
+            )
         )}
         {link && (
             <a
@@ -100,7 +105,7 @@ const CardItem = ({ title, subtitle, date, delay, link }) => (
 );
 
 const Experience = () => {
-    const { training, Certificates, extracurricular, education } = portfolioData;
+    const { training, Certificates, education } = portfolioData;
 
     return (
         <div id="experience">
@@ -138,37 +143,7 @@ const Experience = () => {
                 </div>
             </Section>
 
-            {/* Extracurricular */}
-            <Section title="Extracurricular" className="bg-white/[0.015]">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {extracurricular.map((item, idx) => (
-                        <motion.div
-                            key={idx}
-                            custom={idx * 0.1}
-                            variants={cardVariants}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, margin: "-50px" }}
-                            whileHover={{ y: -4 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
-                            className="glass rounded-2xl p-6 flex items-start gap-5 group cursor-default relative overflow-hidden"
-                        >
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none rounded-2xl" />
 
-                            <div className="p-3 bg-primary/10 rounded-xl shrink-0 group-hover:bg-primary/20 transition-colors duration-300 relative z-10">
-                                <Award className="text-primary" size={22} />
-                            </div>
-                            <div className="relative z-10">
-                                <h3 className="text-base font-bold text-white mb-1 group-hover:text-primary transition-colors duration-250">
-                                    {item.role}
-                                </h3>
-                                <div className="text-gray-400 text-sm mb-2">{item.org}</div>
-                                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </Section>
 
             {/* Education */}
             <Section title="Education">
