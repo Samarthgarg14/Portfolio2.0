@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ScrollProgress from '../components/common/ScrollProgress';
-import ParticlesBackground from '../components/common/ParticlesBackground';
 import CustomCursor from '../components/common/CustomCursor';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -29,11 +28,9 @@ const Home = () => {
             variants={pageVariants}
             initial="hidden"
             animate="show"
-            className="min-h-screen gradient-bg"
+            className="min-h-screen bg-dark"
         >
             <ScrollProgress />
-            <ParticlesBackground />
-            <div className="noise-bg" />
             <CustomCursor />
             <Navbar />
 

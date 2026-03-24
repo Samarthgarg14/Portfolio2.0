@@ -6,14 +6,19 @@ import loksabhaImg from '../assets/Project/Loksabhadashboard.jpeg';
 import {
     CPlusPlusIcon,
     PythonIcon,
-    HtmlCssIcon,
-    GitGithubIcon,
-    PowerBIExcelIcon,
-    NumpyPandasIcon,
-    MatplotlibSeabornIcon,
-    ScikitLearnIcon,
     DataStructuresIcon,
-    AlgorithmsIcon
+    AlgorithmsIcon,
+    SQLIcon,
+    GitIcon,
+    GitHubIcon,
+    FlaskIcon,
+    PowerBIIcon,
+    ExcelIcon,
+    NumpyIcon,
+    PandasIcon,
+    MatplotlibIcon,
+    SeabornIcon,
+    ScikitLearnIcon,
 } from '../components/common/TechIcons';
 
 export const portfolioData = {
@@ -46,19 +51,27 @@ export const portfolioData = {
             "Real-world products",
         ]
     },
-    about: "Hi, I’m a Computer Science student who enjoys turning ideas into real-world projects.\n\nI like building things that are actually useful and solving problems in a simple and practical way. For me, it’s not just about creating something, but making sure it has real value.\n\nCurrently, I’m focused on learning, improving, and pushing myself to build better and more meaningful work every day.",
+    about: "I’m a software engineer and data scientist building practical, real-world solutions. I develop scalable applications, extract insights from data, also train machine learning models with a focus on simplicity, efficiency, and impact. I work at the intersection of engineering and analytics, creating solutions driven by clean architecture and data-informed decisions.",
     skills: {
         technical: [
-            { name: "C / C++", icon: CPlusPlusIcon, category: "Languages" },
-            { name: "Python", icon: PythonIcon, category: "Languages" },
-            { name: "HTML / CSS", icon: HtmlCssIcon, category: "Tools" },
-            { name: "Git / GitHub", icon: GitGithubIcon, category: "Tools" },
-            { name: "Power BI / Excel", icon: PowerBIExcelIcon, category: "Tools" },
-            { name: "NumPy / Pandas", icon: NumpyPandasIcon, category: "Libraries" },
-            { name: "Matplotlib / Seaborn", icon: MatplotlibSeabornIcon, category: "Libraries" },
-            { name: "Scikit-learn", icon: ScikitLearnIcon, category: "Libraries" },
-            { name: "Data Structures", icon: DataStructuresIcon, category: "Core" },
-            { name: "Algorithms", icon: AlgorithmsIcon, category: "Core" }
+            // Row 1 — Languages & Core CS
+            { name: "C / C++",          icon: CPlusPlusIcon,      category: "Languages" },
+            { name: "Python",            icon: PythonIcon,         category: "Languages" },
+            { name: "Data Structures",   icon: DataStructuresIcon, category: "Core" },
+            { name: "Algorithms",        icon: AlgorithmsIcon,     category: "Core" },
+            { name: "SQL",               icon: SQLIcon,            category: "Languages" },
+            // Row 2 — Tools & Frameworks
+            { name: "Git",               icon: GitIcon,            category: "Tools" },
+            { name: "GitHub",            icon: GitHubIcon,         category: "Tools" },
+            { name: "Flask",             icon: FlaskIcon,          category: "Tools" },
+            { name: "Power BI",          icon: PowerBIIcon,        category: "Tools" },
+            { name: "Excel",             icon: ExcelIcon,          category: "Tools" },
+            // Row 3 — Data Science Libraries
+            { name: "NumPy",             icon: NumpyIcon,          category: "Libraries" },
+            { name: "Pandas",            icon: PandasIcon,         category: "Libraries" },
+            { name: "Matplotlib",        icon: MatplotlibIcon,     category: "Libraries" },
+            { name: "Seaborn",           icon: SeabornIcon,        category: "Libraries" },
+            { name: "Scikit-learn",      icon: ScikitLearnIcon,    category: "Libraries" },
         ],
         soft: [
             "Problem-Solving", "Strategic Thinking", "Team Collaboration", "Leadership", "Communication"
@@ -169,9 +182,9 @@ export const portfolioData = {
             company: "AlgoTutor",
             date: "Jun 2025 – Jul 2025",
             desc: [
-                "Practiced NLP fundamentals on Google Colab, including text cleaning, tokenization, stemming/lemmatization, embeddings, and sentiment analysis.",
-                "Worked on hands-on NLP exercises using Python and Generative AI models to understand real-world text-processing workflows.",
-                "Built a functional News Summarizer project applying summarization logic and sentiment evaluation."
+                "NLP fundamentals — tokenization, embeddings & sentiment analysis on Google Colab.",
+                "Python & Generative AI models for real-world text-processing workflows.",
+                "Built a News Summarizer with summarization logic & sentiment evaluation.",
             ],
             link: "https://drive.google.com/file/d/1dem8cMqeJ3VKRUY-2ahOYp_mSOj7dUy5/view?usp=drive_link"
         }

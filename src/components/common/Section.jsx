@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 
 // Reusable animation variants
 export const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
+    hidden: { opacity: 0, y: 40, filter: 'blur(12px)' },
     show: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }
+        filter: 'blur(0px)',
+        transition: { type: "spring", damping: 30, stiffness: 200 }
     }
 };
 
@@ -21,7 +22,7 @@ const Section = ({ id, title, subtitle, children, className = "" }) => {
                         whileInView="show"
                         viewport={{ once: true, margin: "-80px" }}
                         variants={fadeUp}
-                        className="mb-16 md:mb-24 text-center max-w-3xl mx-auto"
+                        className="mb-8 md:mb-10 text-center max-w-3xl mx-auto"
                     >
                         {title && (
                             <>
@@ -37,11 +38,11 @@ const Section = ({ id, title, subtitle, children, className = "" }) => {
                             </p>
                         )}
 
-                        {/* Decorative line */}
-                        <div className="flex items-center justify-center gap-3 mt-8">
-                            <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/50" />
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/50" />
+                        {/* Minimal decorative line */}
+                        <div className="flex items-center justify-center gap-3 mt-10">
+                            <div className="h-px w-8 bg-gradient-to-r from-transparent to-white/20" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                            <div className="h-px w-8 bg-gradient-to-l from-transparent to-white/20" />
                         </div>
                     </motion.div>
                 )}

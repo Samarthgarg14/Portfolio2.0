@@ -13,12 +13,13 @@ const CustomCursor = () => {
 
     useEffect(() => {
         const moveCursor = (e) => {
-            cursorX.set(e.clientX - 16); // Center the 32px cursor
-            cursorY.set(e.clientY - 16);
+            cursorX.set(e.clientX);
+            cursorY.set(e.clientY);
         };
 
         const handleMouseEnter = () => setIsHovered(true);
         const handleMouseLeave = () => setIsHovered(false);
+        const handleClick = () => setIsHovered(false);
 
         // Track mouse movement
         window.addEventListener('mousemove', moveCursor);
@@ -28,6 +29,7 @@ const CustomCursor = () => {
         clickableElements.forEach(el => {
             el.addEventListener('mouseenter', handleMouseEnter);
             el.addEventListener('mouseleave', handleMouseLeave);
+            el.addEventListener('click', handleClick);
         });
 
         // Observer to handle dynamic content (like modals or new elements)
@@ -36,11 +38,14 @@ const CustomCursor = () => {
                 if (mutation.addedNodes.length) {
                     const newClickables = document.querySelectorAll('a, button, input, textarea, [role="button"]');
                     newClickables.forEach(el => {
-                        // Remove first to avoid duplicates (though listeners are unique by ref, safety first)
+                        // Remove first to avoid duplicates
                         el.removeEventListener('mouseenter', handleMouseEnter);
                         el.removeEventListener('mouseleave', handleMouseLeave);
+                        el.removeEventListener('click', handleClick);
+                        
                         el.addEventListener('mouseenter', handleMouseEnter);
                         el.addEventListener('mouseleave', handleMouseLeave);
+                        el.addEventListener('click', handleClick);
                     });
                 }
             });
@@ -53,6 +58,7 @@ const CustomCursor = () => {
             clickableElements.forEach(el => {
                 el.removeEventListener('mouseenter', handleMouseEnter);
                 el.removeEventListener('mouseleave', handleMouseLeave);
+                el.removeEventListener('click', handleClick);
             });
             observer.disconnect();
         };
@@ -60,29 +66,19 @@ const CustomCursor = () => {
 
     return (
         <>
-            {/* Main Dot */}
+            {/* Massive Difference Spotlight Cursor */}
             <motion.div
-                className="fixed top-0 left-0 w-4 h-4 rounded-full bg-primary mix-blend-difference pointer-events-none z-[9999]"
+                className="fixed top-0 left-0 w-10 h-10 rounded-full bg-white mix-blend-difference pointer-events-none z-[9999]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,
-                    translateX: 8, // Offset to center inner dot
-                    translateY: 8,
-                }}
-            />
-            {/* Outline Ring */}
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary mix-blend-difference pointer-events-none z-[9999]"
-                style={{
-                    x: cursorXSpring,
-                    y: cursorYSpring,
+                    translateX: '-50%',
+                    translateY: '-50%',
                 }}
                 animate={{
-                    scale: isHovered ? 2.5 : 1,
-                    opacity: isHovered ? 0.5 : 1,
-                    backgroundColor: isHovered ? 'rgba(0, 243, 255, 0.1)' : 'transparent',
+                    scale: isHovered ? 4 : 1,
                 }}
-                transition={{ duration: 0.2 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
             />
         </>
     );

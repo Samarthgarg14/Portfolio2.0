@@ -18,8 +18,8 @@ const staggerContainer = {
 };
 
 const fadeUpItem = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } }
+    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+    show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { type: "spring", damping: 25, stiffness: 150 } }
 };
 
 /* ─── spring config ──────────────────────────────────────── */
@@ -29,6 +29,7 @@ const Hero = () => {
     const { hero, personal } = portfolioData;
     const [textIndex, setTextIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [isTextHovered, setIsTextHovered] = useState(false);
     const sectionRef = useRef(null);
 
     /* ── mobile detection ── */
@@ -97,213 +98,118 @@ const Hero = () => {
         <section
             ref={sectionRef}
             id="home"
-            className="relative min-h-[105vh] flex items-center pt-28 pb-20 overflow-hidden"
+            className="relative min-h-screen flex items-center justify-center overflow-hidden"
         >
 
-            {/* ── Parallax background blobs ─────────────── */}
-            <motion.div
-                style={{ scale: blobScale, opacity: blobOpacity }}
-                className="absolute inset-0 -z-10 pointer-events-none origin-center"
-            >
-                <div className="absolute top-[8%] left-[5%] w-80 h-80 bg-primary/8 rounded-full blur-[120px] animate-blob" />
-                <div className="absolute bottom-[10%] right-[8%] w-96 h-96 bg-secondary/8 rounded-full blur-[120px] animate-blob animation-delay-2000" />
-                <div className="absolute top-[45%] left-[55%] w-64 h-64 bg-indigo-500/6 rounded-full blur-[100px] animate-blob animation-delay-4000" />
-
-                {/* Scroll-reactive glow that shifts position */}
-                <motion.div
-                    style={{ left: glowX, opacity: glowOpacity }}
-                    className="absolute top-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary rounded-full blur-[160px] pointer-events-none"
-                />
-            </motion.div>
+            {/* Removed Parallax Background Blobs for Apple Pro clean aesthetic */}
 
             {/* ── Scroll veil: bottom-up dark fade ─────────── */}
             <motion.div
                 className="absolute inset-0 -z-10 pointer-events-none"
                 style={{
                     opacity: veilOpacity,
-                    background: 'linear-gradient(to top, #070b15 0%, transparent 60%)',
+                    background: 'linear-gradient(to top, #000000 0%, transparent 60%)',
                 }}
             />
 
-            {/* ── Grid ──────────────────────────────────── */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-                {/* ── Left content ───────────────────────── */}
+            {/* ── Editorial Grid Layout ──────────────────────────────────── */}
+            <div className="max-w-[100rem] mx-auto px-6 md:px-12 lg:px-24 w-full relative min-h-screen flex flex-col md:flex-row items-center justify-between gap-12 pt-24 pb-12">
+                
+                {/* ── Left Column: Massive Typography ─────────────────────── */}
                 <motion.div
-                    style={{ y: contentY, opacity: contentOpacity, scale: contentScale }}
+                    style={{ y: headingY, scale: headingScale }}
                     variants={staggerContainer}
                     initial="hidden"
                     animate="show"
-                    className="z-10 relative"
+                    className="flex-1 flex flex-col items-start z-10 w-full"
                 >
-                    {/* Status badge */}
-                    <motion.div
-                        variants={fadeUpItem}
-                        className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border-white/10 mb-8"
-                    >
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                        </span>
-                        <span className="text-gray-300 font-semibold tracking-[0.12em] text-xs">OPEN TO WORK</span>
-                    </motion.div>
+                    <div className="flex flex-col items-start">
+                        <motion.div variants={fadeUpItem} className="flex flex-col">
+                            <h1 className="text-[clamp(3.5rem,12vw,10rem)] leading-[0.85] font-black text-white uppercase tracking-tighter text-left">
+                                SAMARTH<br />
+                                <span className="text-white/20 hover:text-white transition-colors duration-700">GARG</span>
+                            </h1>
+                        </motion.div>
 
-                    {/* Heading — Apple-style scroll scale-out */}
-                    <motion.h1
-                        style={{
-                            scale: headingScale,
-                            y: headingY,
-                            opacity: headingOpacity,
-                            transformOrigin: 'left center',
-                        }}
-                        variants={fadeUpItem}
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold mb-7 leading-[1.08] tracking-tight font-heading"
-                    >
-                        I build{' '}<br />
-                        <span className="relative inline-block h-[1.2em] w-full align-top">
-                            <AnimatePresence mode="wait">
-                                <motion.span
-                                    key={textIndex}
-                                    initial={{ y: 36, opacity: 0, filter: 'blur(6px)' }}
-                                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                                    exit={{ y: -36, opacity: 0, filter: 'blur(6px)' }}
-                                    transition={{ duration: 0.45, ease: 'easeOut' }}
-                                    className="absolute left-0 top-0 text-transparent bg-clip-text bg-gradient-to-r from-primary via-sky-400 to-secondary whitespace-nowrap"
+                        <motion.div variants={fadeUpItem} className="mt-8 md:mt-12 max-w-xl">
+                            <p className="text-white/60 text-sm md:text-lg tracking-[0.2em] font-medium leading-relaxed uppercase border-l-2 border-white/10 pl-6">
+                                Turning complex code into <span className="text-white font-black italic">elegant interaction</span>.
+                                <br />
+                                <span className="text-[10px] md:text-xs mt-2 block font-black border border-white/10 w-fit px-3 py-1 rounded-full uppercase tracking-[0.3em] bg-white text-black">SOFTWARE ENGINEER</span>
+                            </p>
+                        </motion.div>
+
+                        <motion.div 
+                            variants={fadeUpItem}
+                            className="mt-10 md:mt-16 flex flex-wrap gap-4"
+                        >
+                            <motion.a
+                                href="#projects"
+                                whileHover={{ scale: 1.05, x: 5 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-white text-black px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-xs tracking-widest uppercase hover:bg-gray-200 transition-all shadow-2xl flex items-center gap-3"
+                            >
+                                View Projects
+                                <ArrowRight size={14} />
+                            </motion.a>
+                            <motion.a
+                                href={personal.resume}
+                                target="_blank"
+                                rel="noreferrer"
+                                whileHover={{ scale: 1.05, x: 5 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="glass border-white/20 px-8 md:px-10 py-3 md:py-4 rounded-full text-white font-bold text-xs tracking-widest uppercase hover:bg-white/10 transition-all flex items-center gap-3 shadow-2xl"
+                            >
+                                Resume
+                                <Download size={14} />
+                            </motion.a>
+                        </motion.div>
+
+                        {/* Social Links - Vertical on Tablet/Desktop, Horizontal on Mobile */}
+                        <motion.div 
+                            variants={fadeUpItem}
+                            className="mt-12 flex items-center gap-8 text-white/30"
+                        >
+                            {socials.map((s, idx) => (
+                                <motion.a
+                                    key={idx}
+                                    href={s.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    whileHover={{ y: -5, color: '#fff' }}
+                                    className="hover:scale-110 transition-all"
+                                    aria-label={s.label}
                                 >
-                                    {hero.rotatingText[textIndex]}
-                                </motion.span>
-                            </AnimatePresence>
-                            <span className="opacity-0 select-none pointer-events-none" aria-hidden="true">
-                                {longestText}
-                            </span>
-                        </span>
-                    </motion.h1>
-
-                    {/* Subtitle */}
-                    <motion.p
-                        variants={fadeUpItem}
-                        className="text-gray-400 text-lg md:text-xl max-w-lg mb-10 leading-relaxed"
-                    >
-                        Specializing in scalable systems, data intelligence, and AI-driven solutions.
-                    </motion.p>
-
-                    {/* CTA Buttons */}
-                    <motion.div variants={fadeUpItem} className="flex flex-wrap gap-4 mb-14">
-                        <motion.a
-                            href="#projects"
-                            whileHover={{ scale: 1.04, boxShadow: '0 0 24px rgba(255,255,255,0.25)' }}
-                            whileTap={{ scale: 0.97 }}
-                            className="group flex items-center gap-2 bg-white text-dark px-8 py-3.5 rounded-full font-bold transition-all text-sm tracking-wide"
-                        >
-                            View Projects
-                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
-                        </motion.a>
-                        <motion.a
-                            href={personal.resume}
-                            target="_blank"
-                            rel="noreferrer"
-                            whileHover={{ scale: 1.04 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="flex items-center gap-2 glass border-white/15 px-8 py-3.5 rounded-full text-white transition-all font-medium text-sm tracking-wide hover:border-white/30"
-                        >
-                            <Download size={17} />
-                            Resume
-                        </motion.a>
-                    </motion.div>
-
-                    {/* Stats */}
-                    <motion.div
-                        variants={fadeUpItem}
-                        className="grid grid-cols-3 gap-6 border-t border-white/[0.08] pt-8 max-w-md"
-                    >
-                        {[
-                            { value: personal.stats.cgpa, label: 'CGPA' },
-                            { value: personal.stats.projects, label: 'Projects' },
-                            { value: personal.stats.Certificates, label: 'Certificates' },
-                        ].map(({ value, label }) => (
-                            <div key={label}>
-                                <div className="text-3xl font-bold text-white mb-1 font-heading">{value}</div>
-                                <div className="text-gray-500 text-[10px] uppercase tracking-[0.15em] font-bold">{label}</div>
-                            </div>
-                        ))}
-                    </motion.div>
+                                    <s.icon size={20} />
+                                </motion.a>
+                            ))}
+                        </motion.div>
+                    </div>
                 </motion.div>
 
-                {/* ── Right: Profile Card ──────────────────── */}
+                {/* ── Right Column: Profile Image Card ────────────────────── */}
                 <motion.div
                     style={{ y: cardY, scale: cardScale, opacity: cardOpacity }}
-                    initial={{ opacity: 0, scale: 0.88, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-                    className="relative flex items-center justify-center mt-8 lg:mt-0 w-full lg:ml-24"
+                    initial={{ opacity: 0, scale: 0.8, x: 50, filter: 'blur(20px)' }}
+                    animate={{ opacity: 1, scale: 1, x: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1.5, delay: 0.2, ease: EASE }}
+                    className="w-full md:w-[45%] lg:w-[35%] flex justify-center md:justify-end z-20"
                 >
-                    <div className="relative w-full max-w-[400px]">
-                        {/* Outer glow */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-2xl blur-3xl opacity-60 pointer-events-none" />
+                    <div className="relative w-full aspect-[4/5] max-w-[500px]">
+                        {/* Kinetic Glossy Frame */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl -z-10 rounded-[4rem] animate-pulse" />
+                        
+                        <div className="w-full h-full overflow-hidden rounded-[4rem] group border border-white/10 hover:border-white/30 transition-all duration-700 shadow-[0_0_100px_rgba(255,255,255,0.05)] cursor-pointer">
+                            {/* Color image by default */}
+                            <img
+                                src={profileImg}
+                                alt={personal.name}
+                                className="w-full h-full object-cover object-[50%_12%] contrast-[1.05] transition-all duration-1000 group-hover:scale-110"
+                            />
 
-                        {/* Card — square outer frame, no side padding on image */}
-                        <div className="relative glass rounded-2xl overflow-hidden hover:border-white/16 transition-all duration-500 group flex flex-col">
-
-                            {/* Top shimmer */}
-                            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none z-10" />
-
-                            {/* Profile image — fills full width, square */}
-                            <div className="relative w-full aspect-square overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                                <img
-                                    src={profileImg}
-                                    alt={personal.name}
-                                    className="w-full h-full object-cover object-[50%_12%] group-hover:scale-105 transition-transform duration-700"
-                                />
-                                {/* Gradient fade at bottom into card content */}
-                                <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#0d1526] to-transparent z-10" />
-                            </div>
-
-                            {/* Info section */}
-                            <div className="px-4 py-4 flex flex-col items-center relative z-10">
-                                <h3 className="text-xl font-bold text-white mb-1 font-heading">{personal.name}</h3>
-                                <p className="text-primary text-[11px] font-bold tracking-[0.18em] uppercase mb-4">
-                                    Software Engineer
-                                </p>
-
-                                {/* Tags */}
-                                <div className="flex flex-wrap justify-center gap-2 mb-4 w-full">
-                                    {['C++', 'Python', 'Data Science'].map((tag) => (
-                                        <motion.span
-                                            key={tag}
-                                            whileHover={{ scale: 1.06 }}
-                                            className="px-3 py-1.5 rounded-lg glass text-xs text-gray-300 font-medium cursor-default"
-                                        >
-                                            {tag}
-                                        </motion.span>
-                                    ))}
-                                </div>
-
-                                {/* Social Links */}
-                                <div className="flex justify-center gap-3 w-full border-t border-white/[0.08] pt-4">
-                                    {socials.map(({ href, icon: Icon, label }) => (
-                                        <motion.a
-                                            key={label}
-                                            href={href}
-                                            target={href.startsWith('mailto') ? undefined : '_blank'}
-                                            rel="noreferrer"
-                                            whileHover={{ scale: 1.12, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="flex flex-col items-center gap-1.5 text-gray-500 hover:text-primary transition-colors group/icon"
-                                        >
-                                            <div className="p-2.5 rounded-xl glass group-hover/icon:bg-primary/10 group-hover/icon:border-primary/20 transition-all duration-300">
-                                                <Icon size={17} />
-                                            </div>
-                                            <span className="text-[9px] uppercase tracking-wider font-bold opacity-60 group-hover/icon:opacity-100">
-                                                {label}
-                                            </span>
-                                        </motion.a>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Bottom shimmer on hover */}
-                            <div className="absolute bottom-0 inset-x-0 h-0.5 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary to-secondary transition-opacity duration-500" />
+                            {/* Corner Accents */}
+                            <div className="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-white/20 rounded-tr-3xl" />
+                            <div className="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-white/20 rounded-bl-3xl" />
                         </div>
                     </div>
                 </motion.div>
@@ -312,7 +218,7 @@ const Hero = () => {
             {/* ── Scroll indicator ─────────────────────── */}
             <motion.div
                 style={{ opacity: useTransform(progress, [0, 0.15], [1, 0]) }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-10"
+                className="absolute bottom-2 md:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 pointer-events-none z-10"
             >
                 <span className="text-[10px] uppercase tracking-[0.22em] text-gray-600 font-semibold">Scroll</span>
                 <motion.div

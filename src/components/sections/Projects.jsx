@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, X, ChevronRight, ArrowUpRight } from 'lucide-react';
@@ -30,6 +30,17 @@ const containerVariants = {
 const Projects = () => {
     const [filter, setFilter] = useState('All');
     const [selectedProject, setSelectedProject] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const sliderRef = useRef(null);
+
+    const handleScroll = () => {
+        if (sliderRef.current) {
+            const scrollLeft = sliderRef.current.scrollLeft;
+            const cardWidth = sliderRef.current.querySelector('.project-card-wrapper').offsetWidth + 48; // width + gap-12
+            const newIndex = Math.round(scrollLeft / cardWidth);
+            if (newIndex !== activeIndex) setActiveIndex(newIndex);
+        }
+    };
 
     const filters = ['All', 'AI/Web', 'Data Analysis', 'Dashboards'];
 
@@ -44,16 +55,16 @@ const Projects = () => {
             subtitle="A collection of my best work in AI, Data, and Web Dev"
         >
             {/* Filter Tabs */}
-            <div className="flex flex-wrap justify-center gap-3 mb-14">
+            <div className="flex flex-wrap justify-center gap-3 mb-10 overflow-x-auto pb-4 no-scrollbar">
                 {filters.map((f) => (
                     <motion.button
                         key={f}
                         onClick={() => { setFilter(f); playClick(); }}
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                        className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
                             filter === f
-                                ? 'bg-gradient-to-r from-primary to-secondary text-dark shadow-[0_0_20px_rgba(0,243,255,0.35)]'
+                                ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.1)]'
                                 : 'glass text-gray-400 hover:text-white hover:border-white/15'
                         }`}
                     >
@@ -62,56 +73,120 @@ const Projects = () => {
                 ))}
             </div>
 
-            {/* Project Grid */}
-            <motion.div
-                layout
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-60px" }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
-            >
-                <AnimatePresence mode="popLayout">
-                    {filteredProjects.map((project) => (
-                        <TiltCard
-                            layout
-                            variants={cardVariants}
-                            initial="hidden"
-                            animate="show"
-                            exit="exit"
-                            key={project.id}
-                            className="relative glass rounded-2xl group flex flex-col h-[300px] md:h-[350px] overflow-hidden cursor-pointer border-0"
-                            onClick={() => { setSelectedProject(project); playSuccess(); }}
-                        >
-                            <div className="absolute inset-3 z-0 overflow-hidden rounded-xl bg-[#0d1526]/50 border border-white/5">
-                                {project.image && (
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title} 
-                                        className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" 
-                                    />
-                                )}
-                                {/* Dark gradient at the bottom to ensure text readability and create a deep fade */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black from-15% via-black/60 via-50% to-transparent" />
-                            </div>
+            {/* Project Slider Container */}
+            <div className="relative group/slider max-w-[100vw] overflow-visible">
+                {/* Navigation Arrows */}
+                <div className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-20 group-hover/slider:opacity-100 opacity-0 transition-opacity duration-300">
+                     <motion.button 
+                        whileHover={{ scale: 1.1, x: -4 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
+                        onClick={() => {
+                            const container = document.getElementById('project-slider');
+                            container.scrollBy({ left: -450, behavior: 'smooth' });
+                        }}
+                     >
+                        <motion.div animate={{ x: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ChevronRight className="rotate-180" size={20} /></motion.div>
+                     </motion.button>
+                </div>
 
-                            <div className="relative z-10 flex flex-col justify-end h-full w-full p-8 md:p-10 bg-transparent pointer-events-none">
-                                <h3 className="text-xl md:text-2xl font-extrabold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                                    {project.title}
-                                </h3>
-                                <div>
-                                    <span className="inline-block px-4 py-1.5 rounded-full bg-white text-black text-xs font-extrabold shadow-lg">
-                                        {project.category}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            {/* Hover shimmer optional */}
-                            <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/50 rounded-2xl transition-colors duration-500 pointer-events-none" />
-                        </TiltCard>
-                    ))}
-                </AnimatePresence>
-            </motion.div>
+                <div className="hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-20 group-hover/slider:opacity-100 opacity-0 transition-opacity duration-300">
+                     <motion.button 
+                        whileHover={{ scale: 1.1, x: 4 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
+                        onClick={() => {
+                            const container = document.getElementById('project-slider');
+                            container.scrollBy({ left: 450, behavior: 'smooth' });
+                        }}
+                     >
+                        <motion.div animate={{ x: [0, 2, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ChevronRight size={20} /></motion.div>
+                     </motion.button>
+                </div>
+
+                <motion.div
+                    id="project-slider"
+                    ref={sliderRef}
+                    onScroll={handleScroll}
+                    layout
+                    className="flex gap-8 md:gap-12 overflow-x-auto pb-12 pt-4 no-scrollbar snap-x snap-mandatory"
+                    style={{ 
+                        scrollBehavior: 'smooth',
+                        paddingLeft: '1.5rem', 
+                        paddingRight: '1.5rem' 
+                    }}
+                >
+                    {/* Tablet/Desktop Overrides for Padding */}
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        @media (min-width: 768px) {
+                            #project-slider { 
+                                padding-left: calc(50vw - 240px) !important; 
+                                padding-right: calc(50vw - 240px) !important; 
+                            }
+                        }
+                        @media (min-width: 1024px) {
+                            #project-slider { 
+                                padding-left: calc(50vw - 320px) !important; 
+                                padding-right: calc(50vw - 320px) !important; 
+                            }
+                        }
+                    `}} />
+                    <AnimatePresence mode="popLayout">
+                        {filteredProjects.map((project, idx) => (
+                            <motion.div
+                                layout
+                                key={project.id}
+                                variants={cardVariants}
+                                initial="hidden"
+                                animate="show"
+                                exit="exit"
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.05 }}
+                                className="project-card-wrapper min-w-[calc(100vw-3rem)] md:min-w-[480px] lg:min-w-[640px] snap-center"
+                            >
+                                <TiltCard
+                                    className="relative rounded-[2.5rem] group flex flex-col aspect-video overflow-hidden cursor-pointer bg-dark border border-white/5 hover:border-white/15 transition-colors duration-500"
+                                    onClick={() => { setSelectedProject(project); playSuccess(); }}
+                                >
+                                    <div className="absolute inset-0 z-0 overflow-hidden">
+                                        {project.image && (
+                                            <motion.img 
+                                                src={project.image} 
+                                                alt={project.title} 
+                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 blur-[2px] group-hover:blur-0"
+                                                whileHover={{ scale: 1.05 }}
+                                            />
+                                        )}
+                                        {/* Gradient Overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+                                    </div>
+
+                                    <div className="relative z-10 flex flex-col justify-end h-full w-full p-10 pointer-events-none">
+                                        <div className="flex flex-col gap-4 transform group-hover:translate-y-[-8px] transition-transform duration-500">
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-white/50">{project.date}</span>
+                                                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all">
+                                                    <ArrowUpRight size={18} />
+                                                </div>
+                                            </div>
+                                            <h3 className="text-2xl md:text-3xl font-black text-white leading-tight tracking-tighter drop-shadow-2xl">
+                                                {project.title}
+                                            </h3>
+                                            <div className="flex flex-wrap gap-2 pt-2">
+                                                <span className="inline-block px-4 py-1.5 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest shadow-lg">
+                                                    {project.category}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </TiltCard>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
+
+
+            </div>
 
             {/* Modal — rendered via portal to escape Framer Motion stacking context */}
             {typeof document !== 'undefined' && ReactDOM.createPortal(
@@ -131,8 +206,7 @@ const Projects = () => {
                                 exit={{ y: 40, opacity: 0, scale: 0.96 }}
                                 transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="glass border border-white/12 p-8 md:p-10 rounded-3xl max-w-2xl w-full relative shadow-2xl overflow-y-auto max-h-[90vh]"
-                                style={{ background: 'rgba(10, 15, 28, 0.92)', backdropFilter: 'blur(24px)' }}
+                                className="bg-dark/80 backdrop-blur-[32px] border border-white/10 p-8 md:p-12 rounded-[2.5rem] max-w-2xl w-full relative shadow-2xl overflow-y-auto max-h-[90vh]"
                             >
                                 {/* Close */}
                                 <motion.button
@@ -145,7 +219,7 @@ const Projects = () => {
                                     <X size={20} />
                                 </motion.button>
 
-                                <span className="text-primary text-xs font-bold tracking-[0.18em] uppercase mb-3 block">
+                                <span className="text-gray-400 text-xs font-bold tracking-[0.18em] uppercase mb-3 block">
                                     {selectedProject.category}
                                 </span>
                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-snug">
@@ -182,7 +256,7 @@ const Projects = () => {
                                             href={selectedProject.links.live}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="bg-gradient-to-r from-primary to-secondary text-dark px-7 py-2.5 rounded-full font-bold text-sm hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all hover:scale-105"
+                                            className="bg-white text-black px-7 py-2.5 rounded-full font-bold text-sm hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all hover:scale-105"
                                         >
                                             View Live
                                         </a>

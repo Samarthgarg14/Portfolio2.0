@@ -54,6 +54,42 @@ export const GitGithubIcon = (props) => (
   />
 );
 
+export const GitIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" {...props} />
+);
+
+export const GitHubIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" imgClassName="bg-white rounded-full border border-white" {...props} />
+);
+
+export const FlaskIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" alt="Flask" imgClassName="bg-white rounded-md p-0.5" {...props} />
+);
+
+export const SQLIcon = ({ size = 28, className = '' }) => (
+  <div style={{ width: size, height: size }} className={`flex items-center justify-center ${className}`}>
+    <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-sm" fill="#336791">
+      <path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zM4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4S4 11.21 4 9zm0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4S4 16.21 4 14z"/>
+    </svg>
+  </div>
+);
+
+export const PowerBIIcon = ({ size = 28, className = '' }) => (
+  <div style={{ width: size, height: size }} className={`flex items-center justify-center ${className}`}>
+    <svg viewBox="0 0 24 24" className="w-full h-full object-contain drop-shadow-sm" fill="#F2C811">
+      <path d="M10.462 8.783v14.075h4.945V8.783h-4.945zM3.551 16.037v6.821h4.945v-6.821H3.551zM17.373 1.142v21.716h4.945V1.142h-4.945z"/>
+    </svg>
+  </div>
+);
+
+export const ExcelIcon = ({ size = 28, className = '' }) => (
+  <div style={{ width: size, height: size }} className={`flex items-center justify-center ${className}`}>
+    <svg viewBox="0 0 24 24" className="w-full h-full object-contain drop-shadow-sm" fill="#217346">
+      <path d="M23.16 2.379L10.372 4.414v15.222l12.788 1.961V2.379zM1.986 6.3l8.384-1.312v14.07l-8.384-1.31zM4.192 9.07l1.549 3.097-1.549 3.1h2.203l1.101-2.203 1.102 2.203h2.204l-1.549-3.098 1.549-3.098h-2.204l-1.102 2.203-1.101-2.203H4.192z"/>
+    </svg>
+  </div>
+);
+
 export const PowerBIExcelIcon = ({ size = 28, className = '' }) => (
   <div style={{ width: size * 2, height: size }} className={`flex items-center justify-center gap-2 ${className}`}>
     <svg viewBox="0 0 24 24" className="w-[45%] h-full object-contain drop-shadow-sm" fill="#F2C811">
@@ -65,21 +101,37 @@ export const PowerBIExcelIcon = ({ size = 28, className = '' }) => (
   </div>
 );
 
+export const NumpyIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy" {...props} />
+);
+
+export const PandasIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" imgClassName="bg-white rounded-md p-0.5" {...props} />
+);
+
+export const MatplotlibIcon = (props) => (
+  <IconWrapper src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" {...props} />
+);
+
+export const SeabornIcon = (props) => (
+  <IconWrapper src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" alt="Seaborn" imgClassName="bg-white rounded-md p-0.5" {...props} />
+);
+
 export const NumpyPandasIcon = (props) => (
-  <DualIconWrapper 
+  <DualIconWrapper
     src1="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt1="NumPy"
     src2="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt2="Pandas"
     imgClassName2="bg-white rounded-md p-0.5"
-    {...props} 
+    {...props}
   />
 );
 
 export const MatplotlibSeabornIcon = (props) => (
-  <DualIconWrapper 
+  <DualIconWrapper
     src1="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt1="Matplotlib"
     src2="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" alt2="Seaborn"
     imgClassName2="bg-white rounded-md p-0.5"
-    {...props} 
+    {...props}
   />
 );
 

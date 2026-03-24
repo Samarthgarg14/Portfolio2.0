@@ -1,15 +1,17 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { Mail, Send, CheckCircle, Loader2, Github, Linkedin, MessageSquare, Terminal, ExternalLink } from 'lucide-react';
 import Section, { fadeUp } from '../common/Section';
+import TiltCard from '../common/TiltCard';
 import { portfolioData } from '../../data/portfolioData';
+import { playClick, playSuccess } from '../../utils/sounds';
 
 const inputClass =
-    "w-full bg-white/[0.04] border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm " +
-    "focus:border-primary/60 focus:ring-1 focus:ring-primary/40 outline-none " +
-    "transition-all duration-300 placeholder:text-gray-600 " +
-    "hover:border-white/20";
+    "w-full bg-white/[0.03] border border-white/5 rounded-[1.25rem] px-6 py-4 text-white text-sm " +
+    "focus:border-white/20 focus:ring-1 focus:ring-white/10 outline-none " +
+    "transition-all duration-500 placeholder:text-gray-600 " +
+    "hover:bg-white/[0.05]";
 
 const Contact = () => {
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -21,6 +23,7 @@ const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        playClick();
 
         emailjs.sendForm(
             import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -31,6 +34,7 @@ const Contact = () => {
             .then(() => {
                 setIsSubmitting(false);
                 setIsSuccess(true);
+                playSuccess();
                 setFormState({ name: '', email: '', message: '' });
                 setTimeout(() => setIsSuccess(false), 5000);
             }, (error) => {
@@ -44,128 +48,165 @@ const Contact = () => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
 
-    const contactItems = [
-        { icon: Mail, label: 'Email', value: portfolioData.personal.email },
-        { icon: Phone, label: 'Phone', value: portfolioData.personal.phone },
-        { icon: MapPin, label: 'Location', value: portfolioData.personal.location },
+    const socialTiles = [
+        {
+            name: 'LinkedIn',
+            icon: Linkedin,
+            link: portfolioData.personal.linkedin,
+            label: 'Network',
+            color: 'blue',
+            glow: 'rgba(0, 119, 181, 0.3)'
+        },
+        {
+            name: 'GitHub',
+            icon: Github,
+            link: portfolioData.personal.github,
+            label: 'Code',
+            color: 'white',
+            glow: 'rgba(255, 255, 255, 0.15)'
+        },
+        {
+            name: 'LeetCode',
+            icon: Terminal,
+            link: portfolioData.personal.leetcode,
+            label: 'Solve',
+            color: 'orange',
+            glow: 'rgba(255, 161, 22, 0.25)'
+        },
+        {
+            name: 'Email',
+            icon: Mail,
+            link: `mailto:${portfolioData.personal.email}`,
+            label: 'Hello',
+            color: 'silver',
+            glow: 'rgba(212, 212, 216, 0.2)'
+        },
     ];
 
     return (
         <Section
             id="contact"
             title="Get In Touch"
-            subtitle="Let's build something amazing together"
-            className="bg-white/[0.015]"
         >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-
-                {/* Contact Info Panel */}
+            <div className="max-w-4xl mx-auto px-4">
                 <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, margin: "-60px" }}
-                    variants={fadeUp}
-                    className="space-y-5"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="glass rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 border-white/[0.03] relative overflow-hidden"
                 >
-                    <div className="glass rounded-3xl p-8 relative overflow-hidden">
-                        {/* Ambient glow */}
-                        <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 relative z-10">
 
-                        <h3 className="text-xl font-bold text-white mb-7 relative z-10">Contact Information</h3>
+                        {/* Left: Social Branding */}
+                        <div className="lg:col-span-2 flex flex-col justify-between py-2">
+                            <div>
+                                <h3 className="text-xl md:text-2xl font-black text-white tracking-tighter mb-4">CONNECT</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                                    I'm always open to new opportunities, collaborations, or just a quick chat about tech.
+                                </p>
 
-                        <div className="space-y-5 relative z-10">
-                            {contactItems.map(({ icon: Icon, label, value }) => (
-                                <motion.div
-                                    key={label}
-                                    whileHover={{ x: 4 }}
-                                    className="flex items-center gap-4 text-gray-300 group cursor-default"
-                                >
-                                    <div className="p-3 glass rounded-xl text-primary group-hover:bg-primary/15 transition-colors duration-300 shrink-0">
-                                        <Icon size={20} />
+                                <div className="grid grid-cols-2 gap-3">
+                                    {socialTiles.map((tile) => (
+                                        <a
+                                            key={tile.name}
+                                            href={tile.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/10 transition-all duration-300"
+                                        >
+                                            <div className="p-2 rounded-lg bg-white/[0.05] group-hover:scale-110 transition-transform">
+                                                <tile.icon size={14} className="text-white opacity-60 group-hover:opacity-100" />
+                                            </div>
+                                            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+                                                {tile.name}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="hidden lg:block pt-8 border-t border-white/5">
+                                <div className="space-y-4">
+                                    <div>
+                                        <div className="text-[10px] uppercase tracking-[0.3em] font-black text-white/20 mb-1.5">Location</div>
+                                        <div className="text-xs text-white/50 font-medium">{portfolioData.personal.location}</div>
                                     </div>
                                     <div>
-                                        <div className="text-xs text-gray-500 mb-0.5 uppercase tracking-wider font-semibold">{label}</div>
-                                        <div className="text-sm text-gray-300 font-medium">{value}</div>
+                                        <div className="text-[10px] uppercase tracking-[0.3em] font-black text-white/20 mb-1.5">Mobile</div>
+                                        <div className="text-xs text-white/50 font-medium">{portfolioData.personal.phone}</div>
                                     </div>
-                                </motion.div>
-                            ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right: Compact Form */}
+                        <div className="lg:col-span-3">
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-[9px] uppercase tracking-[0.25em] font-bold text-white/30 ml-2">Name</label>
+                                        <input
+                                            type="text" name="name" required
+                                            value={formState.name} onChange={handleChange}
+                                            className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-3 text-white text-sm focus:border-white/20 focus:ring-1 focus:ring-white/10 outline-none transition-all duration-500 placeholder:text-gray-600 hover:bg-white/[0.05]"
+                                            placeholder="John Doe"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-[9px] uppercase tracking-[0.25em] font-bold text-white/30 ml-2">Email</label>
+                                        <input
+                                            type="email" name="email" required
+                                            value={formState.email} onChange={handleChange}
+                                            className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-3 text-white text-sm focus:border-white/20 focus:ring-1 focus:ring-white/10 outline-none transition-all duration-500 placeholder:text-gray-600 hover:bg-white/[0.05]"
+                                            placeholder="john@example.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <label className="text-[9px] uppercase tracking-[0.25em] font-bold text-white/30 ml-2">Message</label>
+                                    <textarea
+                                        name="message" required rows={8}
+                                        value={formState.message} onChange={handleChange}
+                                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-3 text-white text-sm focus:border-white/20 focus:ring-1 focus:ring-white/10 outline-none transition-all duration-500 placeholder:text-gray-600 hover:bg-white/[0.05] resize-none"
+                                        placeholder="Tell me about your project..."
+                                    />
+                                </div>
+
+                                <motion.button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className="w-full bg-white text-black font-black py-4 rounded-2xl
+                                               transition-all flex items-center justify-center gap-3 cursor-pointer
+                                               disabled:opacity-60 disabled:cursor-not-allowed text-[10px] uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(255,255,255,0.05)]"
+                                >
+                                    {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                                    {isSubmitting ? 'Sending...' : 'Transmit'}
+                                </motion.button>
+                            </form>
                         </div>
                     </div>
-                </motion.div>
 
-                {/* Form Panel */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, margin: "-60px" }}
-                    variants={{
-                        hidden: { opacity: 0, y: 32 },
-                        show: { opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.12, ease: [0.25, 0.46, 0.45, 0.94] } }
-                    }}
-                    className="glass rounded-3xl p-8 relative overflow-hidden"
-                >
-                    {/* Ambient glow */}
-                    <div className="absolute -top-16 -right-16 w-48 h-48 bg-secondary/8 rounded-full blur-3xl pointer-events-none" />
-
-                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 relative z-10">
-                        <div>
-                            <label htmlFor="name" className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Name</label>
-                            <input
-                                type="text" id="name" name="name" required
-                                value={formState.name} onChange={handleChange}
-                                className={inputClass} placeholder="Your Name"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Email</label>
-                            <input
-                                type="email" id="email" name="email" required
-                                value={formState.email} onChange={handleChange}
-                                className={inputClass} placeholder="your@email.com"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="message" className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Message</label>
-                            <textarea
-                                id="message" name="message" required rows={5}
-                                value={formState.message} onChange={handleChange}
-                                className={`${inputClass} resize-none`} placeholder="How can I help you?"
-                            />
-                        </div>
-
-                        <motion.button
-                            type="submit"
-                            disabled={isSubmitting}
-                            whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(0,243,255,0.35)' }}
-                            whileTap={{ scale: 0.98 }}
-                            className="w-full bg-gradient-to-r from-primary to-secondary text-dark font-bold py-4 rounded-xl
-                                       transition-all flex items-center justify-center gap-2 cursor-pointer
-                                       disabled:opacity-60 disabled:cursor-not-allowed text-sm tracking-wide"
-                        >
-                            {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                            {isSubmitting ? 'Sending...' : 'Send Message'}
-                        </motion.button>
-                    </form>
-
-                    {/* Success Overlay */}
                     <AnimatePresence>
                         {isSuccess && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="absolute inset-0 rounded-3xl bg-dark/96 backdrop-blur-sm flex flex-col items-center justify-center z-20 text-center p-8"
+                                className="absolute inset-0 rounded-[2.5rem] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center z-20 text-center p-8"
                             >
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    transition={{ type: 'spring', stiffness: 280, damping: 20 }}
-                                    className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-5 text-green-400"
+                                    className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 text-white"
                                 >
                                     <CheckCircle size={32} />
                                 </motion.div>
-                                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                                <p className="text-gray-400 text-sm">Thanks for reaching out. I'll get back to you soon.</p>
+                                <h3 className="text-2xl font-black text-white mb-2 tracking-tighter uppercase">Message Sent</h3>
+                                <p className="text-gray-400 text-xs max-w-xs leading-relaxed">I'll get back to you within 24 hours.</p>
                             </motion.div>
                         )}
                     </AnimatePresence>
