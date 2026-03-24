@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, X, ChevronRight, ArrowUpRight } from 'lucide-react';
@@ -33,6 +33,16 @@ const Projects = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const sliderRef = useRef(null);
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && selectedProject) {
+                setSelectedProject(null);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedProject]);
+
     const handleScroll = () => {
         if (sliderRef.current) {
             const scrollLeft = sliderRef.current.scrollLeft;
@@ -42,7 +52,7 @@ const Projects = () => {
         }
     };
 
-    const filters = ['All', 'AI/Web', 'Data Analysis', 'Dashboards'];
+    const filters = ['All', 'ML/Security', 'AI/Web', 'Data Analysis', 'Dashboards'];
 
     const filteredProjects = portfolioData.projects.filter(project =>
         filter === 'All' ? true : project.category === filter
@@ -62,11 +72,10 @@ const Projects = () => {
                         onClick={() => { setFilter(f); playClick(); }}
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
-                            filter === f
+                        className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${filter === f
                                 ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.1)]'
                                 : 'glass text-gray-400 hover:text-white hover:border-white/15'
-                        }`}
+                            }`}
                     >
                         {f}
                     </motion.button>
@@ -77,7 +86,7 @@ const Projects = () => {
             <div className="relative group/slider max-w-[100vw] overflow-visible">
                 {/* Navigation Arrows */}
                 <div className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 z-20 group-hover/slider:opacity-100 opacity-0 transition-opacity duration-300">
-                     <motion.button 
+                    <motion.button
                         whileHover={{ scale: 1.1, x: -4 }}
                         whileTap={{ scale: 0.9 }}
                         className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
@@ -85,13 +94,13 @@ const Projects = () => {
                             const container = document.getElementById('project-slider');
                             container.scrollBy({ left: -450, behavior: 'smooth' });
                         }}
-                     >
+                    >
                         <motion.div animate={{ x: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ChevronRight className="rotate-180" size={20} /></motion.div>
-                     </motion.button>
+                    </motion.button>
                 </div>
 
                 <div className="hidden lg:flex absolute -right-16 top-1/2 -translate-y-1/2 z-20 group-hover/slider:opacity-100 opacity-0 transition-opacity duration-300">
-                     <motion.button 
+                    <motion.button
                         whileHover={{ scale: 1.1, x: 4 }}
                         whileTap={{ scale: 0.9 }}
                         className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
@@ -99,9 +108,9 @@ const Projects = () => {
                             const container = document.getElementById('project-slider');
                             container.scrollBy({ left: 450, behavior: 'smooth' });
                         }}
-                     >
+                    >
                         <motion.div animate={{ x: [0, 2, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}><ChevronRight size={20} /></motion.div>
-                     </motion.button>
+                    </motion.button>
                 </div>
 
                 <motion.div
@@ -110,14 +119,15 @@ const Projects = () => {
                     onScroll={handleScroll}
                     layout
                     className="flex gap-8 md:gap-12 overflow-x-auto pb-12 pt-4 no-scrollbar snap-x snap-mandatory"
-                    style={{ 
+                    style={{
                         scrollBehavior: 'smooth',
-                        paddingLeft: '1.5rem', 
-                        paddingRight: '1.5rem' 
+                        paddingLeft: '1.5rem',
+                        paddingRight: '1.5rem'
                     }}
                 >
                     {/* Tablet/Desktop Overrides for Padding */}
-                    <style dangerouslySetInnerHTML={{ __html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                         @media (min-width: 768px) {
                             #project-slider { 
                                 padding-left: calc(50vw - 240px) !important; 
@@ -150,9 +160,9 @@ const Projects = () => {
                                 >
                                     <div className="absolute inset-0 z-0 overflow-hidden">
                                         {project.image && (
-                                            <motion.img 
-                                                src={project.image} 
-                                                alt={project.title} 
+                                            <motion.img
+                                                src={project.image}
+                                                alt={project.title}
                                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 blur-[2px] group-hover:blur-0"
                                                 whileHover={{ scale: 1.05 }}
                                             />
@@ -228,7 +238,7 @@ const Projects = () => {
                                 <div className="text-gray-500 text-sm mb-7">{selectedProject.date}</div>
 
                                 <ul className="text-gray-300 leading-relaxed mb-8 text-[15px] list-disc pl-5 space-y-2">
-                                    {Array.isArray(selectedProject.details) 
+                                    {Array.isArray(selectedProject.details)
                                         ? selectedProject.details.map((point, i) => <li key={i}>{point}</li>)
                                         : <li>{selectedProject.details}</li>
                                     }

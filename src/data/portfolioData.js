@@ -1,4 +1,5 @@
 import { Terminal } from 'lucide-react';
+import phishingImg from '../assets/Project/phishing.jpeg';
 import nycdashboardImg from '../assets/Project/nycdashboard.jpeg';
 import sleepdetoxImg from '../assets/Project/sleepdetox.jpeg';
 import covidImg from '../assets/Project/Covid.png';
@@ -51,27 +52,27 @@ export const portfolioData = {
             "Real-world products",
         ]
     },
-    about: "I’m a software engineer and data scientist building practical, real-world solutions. I develop scalable applications, extract insights from data, also train machine learning models with a focus on simplicity, efficiency, and impact. I work at the intersection of engineering and analytics, creating solutions driven by clean architecture and data-informed decisions.",
+    about: "I’m a software engineer and data scientist building practical, real-world solutions. I develop scalable applications, extract insights from data, train machine learning models with focus on simplicity, efficiency, and impact. I work at the intersection of engineering and analytics, creating solutions driven by clean architecture and data-informed decisions.",
     skills: {
         technical: [
             // Row 1 — Languages & Core CS
-            { name: "C / C++",          icon: CPlusPlusIcon,      category: "Languages" },
-            { name: "Python",            icon: PythonIcon,         category: "Languages" },
-            { name: "Data Structures",   icon: DataStructuresIcon, category: "Core" },
-            { name: "Algorithms",        icon: AlgorithmsIcon,     category: "Core" },
-            { name: "SQL",               icon: SQLIcon,            category: "Languages" },
+            { name: "C / C++", icon: CPlusPlusIcon, category: "Languages" },
+            { name: "Python", icon: PythonIcon, category: "Languages" },
+            { name: "Data Structures", icon: DataStructuresIcon, category: "Core" },
+            { name: "Algorithms", icon: AlgorithmsIcon, category: "Core" },
+            { name: "SQL", icon: SQLIcon, category: "Languages" },
             // Row 2 — Tools & Frameworks
-            { name: "Git",               icon: GitIcon,            category: "Tools" },
-            { name: "GitHub",            icon: GitHubIcon,         category: "Tools" },
-            { name: "Flask",             icon: FlaskIcon,          category: "Tools" },
-            { name: "Power BI",          icon: PowerBIIcon,        category: "Tools" },
-            { name: "Excel",             icon: ExcelIcon,          category: "Tools" },
+            { name: "Git", icon: GitIcon, category: "Tools" },
+            { name: "GitHub", icon: GitHubIcon, category: "Tools" },
+            { name: "Flask", icon: FlaskIcon, category: "Tools" },
+            { name: "Power BI", icon: PowerBIIcon, category: "Tools" },
+            { name: "Excel", icon: ExcelIcon, category: "Tools" },
             // Row 3 — Data Science Libraries
-            { name: "NumPy",             icon: NumpyIcon,          category: "Libraries" },
-            { name: "Pandas",            icon: PandasIcon,         category: "Libraries" },
-            { name: "Matplotlib",        icon: MatplotlibIcon,     category: "Libraries" },
-            { name: "Seaborn",           icon: SeabornIcon,        category: "Libraries" },
-            { name: "Scikit-learn",      icon: ScikitLearnIcon,    category: "Libraries" },
+            { name: "NumPy", icon: NumpyIcon, category: "Libraries" },
+            { name: "Pandas", icon: PandasIcon, category: "Libraries" },
+            { name: "Matplotlib", icon: MatplotlibIcon, category: "Libraries" },
+            { name: "Seaborn", icon: SeabornIcon, category: "Libraries" },
+            { name: "Scikit-learn", icon: ScikitLearnIcon, category: "Libraries" },
         ],
         soft: [
             "Problem-Solving", "Strategic Thinking", "Team Collaboration", "Leadership", "Communication"
@@ -80,6 +81,24 @@ export const portfolioData = {
     projects: [
         {
             id: 1,
+            title: "Phishing Detection AI System",
+            category: "ML/Security",
+            image: phishingImg, // Placeholder or add new asset
+            date: "Mar’ 26",
+            summary: "Real-time phishing detection system using supervised learning on 30+ URL & HTML features.",
+            details: [
+                "Built a real-time phishing detection system using supervised learning on 30+ URL & HTML features and dataset with 11055 records.",
+                "Developed an end-to-end ML pipeline with preprocessing and benchmarking across 6 models.",
+                "Achieved ~96% accuracy and built a diagnostic URL scanner for instant security analysis."
+            ],
+            tech: ["Python", "FastAPI", "Scikit-learn", "MLflow", "HTML", "CSS", "JavaScript", "Chart.js"],
+            links: {
+                github: "https://github.com/Samarthgarg14/Phishing_Detection_AI",
+                live: null
+            }
+        },
+        {
+            id: 2,
             title: "NYC Real Estate Market Intelligence Dashboard",
             category: "Dashboards",
             image: nycdashboardImg,
@@ -97,12 +116,12 @@ export const portfolioData = {
             }
         },
         {
-            id: 2,
+            id: 3,
             title: "Sleep Detox Optimizer",
             category: "AI/Web",
             image: sleepdetoxImg,
             date: "May 2025",
-            summary: "AI-driven sleep detox insights with secure data intake, featuring personalized adaptive suggestions that evolve with user behavior patterns.",
+            summary: "AI-driven sleep detox insights with secure data intake, featuring personalized adaptive suggestions.",
             details: [
                 "Improved sleep quality through personalized AI-driven detox insights.",
                 "Built a real-time sleep wellness system with secure data intake and smart recommendation logic.",
@@ -115,7 +134,7 @@ export const portfolioData = {
             }
         },
         {
-            id: 3,
+            id: 4,
             title: "COVID-19 Data Analysis",
             category: "Data Analysis",
             image: covidImg,
@@ -133,7 +152,7 @@ export const portfolioData = {
             }
         },
         {
-            id: 4,
+            id: 5,
             title: "Lok Sabha Elections 2024 Dashboard",
             category: "Dashboards",
             image: loksabhaImg,

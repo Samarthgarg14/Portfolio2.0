@@ -36,7 +36,7 @@ const About = () => {
                     variants={cardVariants}
                     className="md:col-span-8 rounded-[2.5rem] bg-white/[0.04] backdrop-blur-md border border-white/[0.07] p-8 md:p-10 flex flex-col justify-between group hover:bg-white/[0.07] transition-all duration-500 min-h-[220px]"
                 >
-                    <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed font-light text-justify">
+                    <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed font-light text-justify ">
                         {portfolioData.about}
                     </p>
                     <div className="mt-5 flex items-center gap-3">

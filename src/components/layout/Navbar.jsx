@@ -16,13 +16,13 @@ const BentoTile = ({ title, icon: Icon, href, subtitle, className, delay, onSele
             if (onSelect) onSelect();
         }}
         onMouseEnter={() => playHover()}
-        className={`relative group overflow-hidden rounded-[1.5rem] bg-white/[0.03] backdrop-blur-3xl border border-white/[0.06] p-5 flex flex-col justify-between hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 ${className}`}
+        className={`relative group overflow-hidden rounded-[1.5rem] bg-white/[0.03] backdrop-blur-3xl border border-white/[0.06] p-4 sm:p-5 flex flex-col justify-between hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 ${className}`}
     >
         <div className="flex justify-between items-start">
-            <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500">
-                <Icon size={18} strokeWidth={2.5} />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                <Icon size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
             </div>
-            <div className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 group-hover:text-white/40 transition-colors">
+            <div className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-white/20 group-hover:text-white/40 transition-colors">
                 {title}
             </div>
         </div>
@@ -50,10 +50,19 @@ const Navbar = () => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
         
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                setIsOpen(false);
+                playClick();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [isOpen]);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -95,13 +104,13 @@ const Navbar = () => {
                             {/* Header Meta - Compact */}
                             <div className="flex justify-between items-end mb-8 border-b border-white/[0.05] pb-6">
                                 <div>
-                                    <h2 className="text-[9px] font-black uppercase tracking-[0.4em] text-white/30 mb-1">Command Hub Navigation</h2>
-                                    <p className="text-2xl font-black text-white tracking-tighter uppercase leading-none">System Portal</p>
+                                    <h2 className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.4em] text-white/30 mb-1">Command Hub Navigation</h2>
+                                    <p className="text-xl sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">System Portal</p>
                                 </div>
                             </div>
 
                             {/* Bento Grid layout - Compact auto-rows */}
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 auto-rows-[minmax(100px,1fr)] lg:auto-rows-auto lg:grid-rows-3 h-full max-h-[80vh] overflow-y-auto lg:overflow-hidden">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 auto-rows-[minmax(120px,1fr)] sm:auto-rows-[minmax(100px,1fr)] lg:auto-rows-auto lg:grid-rows-3 h-full max-h-[80vh] overflow-y-auto lg:overflow-hidden">
                                 
                                 {/* Home Tile */}
                                 <BentoTile 
@@ -155,13 +164,13 @@ const Navbar = () => {
                                     title="04 / Track" 
                                     icon={Briefcase} 
                                     href="#experience" 
-                                    className="lg:col-span-2 bg-[#0c0c0c]"
+                                    className="col-span-2 lg:col-span-2 bg-[#0c0c0c]"
                                     delay={0.2}
                                     onSelect={handleSelect}
                                 >
-                                    <div className="flex justify-between items-end">
-                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-none">TRAINING & CERTIFICATES</h3>
-                                        <Zap size={18} className="text-white/5 motion-safe:animate-pulse" />
+                                    <div className="flex justify-between items-end gap-4">
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">TRAINING & CERTIFICATES</h3>
+                                        <Zap size={18} className="text-white/5 motion-safe:animate-pulse shrink-0" />
                                     </div>
                                 </BentoTile>
 
@@ -175,10 +184,10 @@ const Navbar = () => {
                                     onSelect={handleSelect}
                                 >
                                     <div className="flex flex-col gap-4">
-                                        <p className="text-[10px] text-white/40 font-medium leading-relaxed uppercase tracking-tighter italic border-l border-white/10 pl-3">
+                                        <p className="hidden sm:block text-[10px] text-white/40 font-medium leading-relaxed uppercase tracking-tighter italic border-l border-white/10 pl-3">
                                             Turning code into interaction.
                                         </p>
-                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-none">ABOUT ME</h3>
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">ABOUT ME</h3>
                                     </div>
                                 </BentoTile>
 
@@ -192,7 +201,7 @@ const Navbar = () => {
                                     onSelect={handleSelect}
                                 >
                                     <div className="flex flex-col justify-end h-full">
-                                        <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-none text-right">PROJECTS</h3>
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none text-right">PROJECTS</h3>
                                     </div>
                                 </BentoTile>
 
@@ -201,11 +210,11 @@ const Navbar = () => {
                                     title="07 / Academic" 
                                     icon={GraduationCap} 
                                     href="#education" 
-                                    className="lg:col-span-2 bg-[#0c0c0c]"
+                                    className="col-span-2 lg:col-span-2 bg-[#0c0c0c]"
                                     delay={0.35}
                                     onSelect={handleSelect}
                                 >
-                                    <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-none">EDUCATION</h3>
+                                    <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">EDUCATION</h3>
                                 </BentoTile>
                             </div>
 

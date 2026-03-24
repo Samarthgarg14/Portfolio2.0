@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import SmoothScroll from './components/common/SmoothScroll';
 import Loader from './components/common/Loader';
 import Home from './pages/Home';
 
@@ -13,13 +14,13 @@ function App() {
     }, []);
 
     return (
-        <>
+        <SmoothScroll>
             <AnimatePresence>
                 {loading && <Loader />}
             </AnimatePresence>
 
             {!loading && <Home />}
-        </>
+        </SmoothScroll>
     );
 }
 
