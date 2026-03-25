@@ -114,7 +114,7 @@ const Hero = () => {
 
             {/* ── Editorial Grid Layout ──────────────────────────────────── */}
             <div className="max-w-[100rem] mx-auto px-6 md:px-12 lg:px-24 w-full relative min-h-screen flex flex-col md:flex-row items-center justify-between gap-12 pt-24 pb-12">
-                
+
                 {/* ── Left Column: Massive Typography ─────────────────────── */}
                 <motion.div
                     style={{ y: headingY, scale: headingScale }}
@@ -133,13 +133,13 @@ const Hero = () => {
 
                         <motion.div variants={fadeUpItem} className="mt-8 md:mt-12 max-w-xl">
                             <p className="text-white/60 text-sm md:text-lg tracking-[0.2em] font-medium leading-relaxed uppercase border-l-2 border-white/10 pl-6">
-                                Turning complex code into <span className="text-white font-black italic">elegant interaction</span>.
+                                Turning complex code into <span className="text-white font-black italic">elegant interaction</span>
                                 <br />
                                 <span className="text-[10px] md:text-xs mt-2 block font-black border border-white/10 w-fit px-3 py-1 rounded-full uppercase tracking-[0.3em] bg-white text-black">SOFTWARE ENGINEER</span>
                             </p>
                         </motion.div>
 
-                        <motion.div 
+                        <motion.div
                             variants={fadeUpItem}
                             className="mt-10 md:mt-16 flex flex-wrap gap-4"
                         >
@@ -166,7 +166,7 @@ const Hero = () => {
                         </motion.div>
 
                         {/* Social Links - Vertical on Tablet/Desktop, Horizontal on Mobile */}
-                        <motion.div 
+                        <motion.div
                             variants={fadeUpItem}
                             className="mt-12 flex items-center gap-8 text-white/30"
                         >
@@ -198,7 +198,7 @@ const Hero = () => {
                     <div className="relative w-full aspect-[4/5] max-w-[500px]">
                         {/* Kinetic Glossy Frame */}
                         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-2xl -z-10 rounded-[4rem] animate-pulse" />
-                        
+
                         <div className="w-full h-full overflow-hidden rounded-[4rem] group border border-white/10 hover:border-white/30 transition-all duration-700 shadow-[0_0_100px_rgba(255,255,255,0.05)] cursor-pointer">
                             {/* Color image by default */}
                             <img

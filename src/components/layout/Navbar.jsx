@@ -49,11 +49,41 @@ const Navbar = () => {
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
-        
+
         const handleKeyDown = (e) => {
             if (e.key === 'Escape' && isOpen) {
                 setIsOpen(false);
                 playClick();
+                return;
+            }
+
+            // Number keys 1-7 for navigation
+            const isInputFocus = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) || 
+                                document.activeElement.isContentEditable;
+            
+            if (!isInputFocus) {
+                const navLinks = {
+                    '1': '#home',
+                    '2': '#about',
+                    '3': '#skills',
+                    '4': '#projects',
+                    '5': '#experience',
+                    '6': '#education',
+                    '7': '#contact'
+                };
+
+                if (navLinks[e.key]) {
+                    e.preventDefault();
+                    setIsOpen(false);
+                    // playClick(); // Optional: sound feedback
+                    
+                    const element = document.querySelector(navLinks[e.key]);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                        // Update hash without jumping
+                        window.history.pushState(null, null, navLinks[e.key]);
+                    }
+                }
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -111,24 +141,40 @@ const Navbar = () => {
 
                             {/* Bento Grid layout - Compact auto-rows */}
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 auto-rows-[minmax(120px,1fr)] sm:auto-rows-[minmax(100px,1fr)] lg:auto-rows-auto lg:grid-rows-3 h-full max-h-[80vh] overflow-y-auto lg:overflow-hidden">
-                                
+
                                 {/* Home Tile */}
-                                <BentoTile 
-                                    title="01 / Launch" 
-                                    icon={Home} 
-                                    href="#home" 
-                                    subtitle={"RETURN TO\nORIGIN"} 
+                                <BentoTile
+                                    title="01 / Launch"
+                                    icon={Home}
+                                    href="#home"
+                                    subtitle={"RETURN TO\nORIGIN"}
                                     className="lg:col-span-2"
                                     delay={0.05}
                                     onSelect={handleSelect}
                                 />
 
-                                {/* Skills Tile */}
-                                <BentoTile 
-                                    title="02 / Tech" 
-                                    icon={Code2} 
-                                    href="#skills" 
+                                {/* About Tile */}
+                                <BentoTile
+                                    title="02 / Profile"
+                                    icon={User}
+                                    href="#about"
                                     delay={0.1}
+                                    onSelect={handleSelect}
+                                >
+                                    <div className="flex flex-col gap-4">
+                                        <p className="hidden sm:block text-[10px] text-white/40 font-medium leading-relaxed uppercase tracking-tighter italic border-l border-white/10 pl-3">
+                                            Turning code into interaction
+                                        </p>
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">ABOUT ME</h3>
+                                    </div>
+                                </BentoTile>
+
+                                {/* Skills Tile */}
+                                <BentoTile
+                                    title="03 / Tech"
+                                    icon={Code2}
+                                    href="#skills"
+                                    delay={0.15}
                                     onSelect={handleSelect}
                                 >
                                     <div className="flex flex-col gap-2">
@@ -141,13 +187,54 @@ const Navbar = () => {
                                     </div>
                                 </BentoTile>
 
+                                {/* Projects Tile */}
+                                <BentoTile
+                                    title="04 / Works"
+                                    icon={FolderGit2}
+                                    href="#projects"
+                                    className="lg:col-span-2"
+                                    delay={0.2}
+                                    onSelect={handleSelect}
+                                >
+                                    <div className="flex flex-col justify-end h-full">
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">PROJECTS</h3>
+                                    </div>
+                                </BentoTile>
+
+                                {/* Training & Certificates Tile */}
+                                <BentoTile
+                                    title="05 / Track"
+                                    icon={Briefcase}
+                                    href="#experience"
+                                    className="lg:row-span-2 bg-[#0c0c0c]"
+                                    delay={0.25}
+                                    onSelect={handleSelect}
+                                >
+                                    <div className="flex flex-col justify-between h-full gap-4">
+                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">TRAINING & CERTIFICATES</h3>
+                                        <Zap size={18} className="text-white/5 motion-safe:animate-pulse shrink-0" />
+                                    </div>
+                                </BentoTile>
+
+                                {/* Education Tile */}
+                                <BentoTile
+                                    title="06 / Academic"
+                                    icon={GraduationCap}
+                                    href="#education"
+                                    className="lg:row-span-2 bg-[#0c0c0c]"
+                                    delay={0.3}
+                                    onSelect={handleSelect}
+                                >
+                                    <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">EDUCATION</h3>
+                                </BentoTile>
+
                                 {/* Contact Tile */}
-                                <BentoTile 
-                                    title="03 / Reach" 
-                                    icon={Mail} 
-                                    href="#contact" 
-                                    className="bg-white/[0.05] group"
-                                    delay={0.15}
+                                <BentoTile
+                                    title="07 / Reach"
+                                    icon={Mail}
+                                    href="#contact"
+                                    className="lg:col-span-2 bg-white/[0.05] group"
+                                    delay={0.35}
                                     onSelect={handleSelect}
                                 >
                                     <div className="flex flex-col gap-1">
@@ -158,64 +245,6 @@ const Navbar = () => {
                                         <h3 className="text-lg font-black text-white tracking-tighter uppercase leading-none">CONNECT</h3>
                                     </div>
                                 </BentoTile>
-
-                                {/* Training & Certificates Tile */}
-                                <BentoTile 
-                                    title="04 / Track" 
-                                    icon={Briefcase} 
-                                    href="#experience" 
-                                    className="col-span-2 lg:col-span-2 bg-[#0c0c0c]"
-                                    delay={0.2}
-                                    onSelect={handleSelect}
-                                >
-                                    <div className="flex justify-between items-end gap-4">
-                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">TRAINING & CERTIFICATES</h3>
-                                        <Zap size={18} className="text-white/5 motion-safe:animate-pulse shrink-0" />
-                                    </div>
-                                </BentoTile>
-
-                                {/* About Tile */}
-                                <BentoTile 
-                                    title="05 / Profile" 
-                                    icon={User} 
-                                    href="#about" 
-                                    className="lg:row-span-2"
-                                    delay={0.25}
-                                    onSelect={handleSelect}
-                                >
-                                    <div className="flex flex-col gap-4">
-                                        <p className="hidden sm:block text-[10px] text-white/40 font-medium leading-relaxed uppercase tracking-tighter italic border-l border-white/10 pl-3">
-                                            Turning code into interaction.
-                                        </p>
-                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">ABOUT ME</h3>
-                                    </div>
-                                </BentoTile>
-
-                                {/* Projects Tile */}
-                                <BentoTile 
-                                    title="06 / Works" 
-                                    icon={FolderGit2} 
-                                    href="#projects" 
-                                    className="lg:row-span-2"
-                                    delay={0.3}
-                                    onSelect={handleSelect}
-                                >
-                                    <div className="flex flex-col justify-end h-full">
-                                        <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none text-right">PROJECTS</h3>
-                                    </div>
-                                </BentoTile>
-
-                                {/* Education Tile */}
-                                <BentoTile 
-                                    title="07 / Academic" 
-                                    icon={GraduationCap} 
-                                    href="#education" 
-                                    className="col-span-2 lg:col-span-2 bg-[#0c0c0c]"
-                                    delay={0.35}
-                                    onSelect={handleSelect}
-                                >
-                                    <h3 className="text-lg sm:text-2xl font-black text-white tracking-tighter uppercase leading-none">EDUCATION</h3>
-                                </BentoTile>
                             </div>
 
                             {/* Footer - Extra Compact */}
@@ -224,7 +253,7 @@ const Navbar = () => {
                                 <button onClick={toggleMenu} className="text-white hover:text-white/60 transition-colors uppercase">Close Hub</button>
                             </div>
                         </div>
-                   </motion.div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </>
