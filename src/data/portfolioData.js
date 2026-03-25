@@ -191,9 +191,9 @@ export const portfolioData = {
         }
     ],
     Certificates: [
-        { title: "Adobe India Hackathon", issuer: "Unstop", date: "Jul 2025", link: "https://drive.google.com/file/d/19Sj3vV7C1uzBKbYKTV5Hnn2_SbiifNBH/view?usp=drive_link" },
         { title: "Cloud Computing", issuer: "NPTEL (IIT Kharagpur)", date: "Apr 2025", link: "https://drive.google.com/file/d/1QF-EI1W9cOsALd2lAQwPAs0-uGLE7rYG/view?usp=drive_link" },
-        { title: "CyberSleuth Ethical Hacking", issuer: "ETA Club LPU", date: "Sep 2023", link: "https://drive.google.com/file/d/1JBEyUyjnI9vFRj6W7jkfsHI2W-uobdgX/view?usp=drive_link" }
+        { title: "Data Structures and Algorithms", issuer: "Neocolab", date: "Dec 2024", link: "https://drive.google.com/file/d/1kkHQM61K-8MLY62zUgnujAiHa3dM7myN/view" },
+        { title: "Object Oriented Programming", issuer: "Neocolab", date: "Dec 2024", link: "https://drive.google.com/file/d/1VvzvlzJZHf9WvhBhdfKcc9x8QrX3CgK4/view" }
     ],
     training: [
         {
