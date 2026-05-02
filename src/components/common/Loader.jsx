@@ -56,7 +56,7 @@ const Loader = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-green-400"
                     >
-                        > {log}
+                        &gt; {log}
                     </motion.div>
                 ))}
             </div>
