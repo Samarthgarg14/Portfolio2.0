@@ -1,6 +1,9 @@
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Briefcase, Award, BookOpen, ExternalLink } from 'lucide-react';
+import { playSuccess } from '../../utils/sounds';
 import Section from '../common/Section';
+import PdfViewerModal from '../common/PdfViewerModal';
 import { portfolioData } from '../../data/portfolioData';
 
 const itemVariants = {
@@ -101,6 +104,7 @@ const CardItem = ({ title, subtitle, date, delay, link }) => (
 
 const Experience = () => {
     const { training, Certificates, education } = portfolioData;
+    const [selectedPdf, setSelectedPdf] = useState(null);
 
     return (
         <div id="experience">
@@ -121,7 +125,7 @@ const Experience = () => {
                                 <div className="flex flex-col gap-5">
                                     {/* Badge row */}
                                     <div className="flex items-center justify-between">
-                                        <div className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-600 font-semibold">{item.company}</div>
+                                        <div className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold">{item.company}</div>
                                         <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-[10px] md:text-[11px] font-black text-gray-500">
                                             {String(idx + 1).padStart(2, '0')}
                                         </div>
@@ -142,10 +146,10 @@ const Experience = () => {
                                 </div>
                                 {/* Footer */}
                                 <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                                    <span className="text-xs uppercase tracking-[0.2em] text-gray-600 font-semibold">{item.date}</span>
+                                    <span className="text-xs uppercase tracking-[0.2em] text-gray-400 font-semibold">{item.date}</span>
                                     {item.link && (
-                                        <a href={item.link} target="_blank" rel="noreferrer"
-                                            className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider px-6 py-3 rounded-full bg-white/[0.06] border border-white/[0.1] hover:bg-white/[0.14] hover:border-white/[0.22] transition-all duration-300"
+                                        <a href={item.link} onClick={(e) => { e.preventDefault(); playSuccess(); setSelectedPdf(item.link); }}
+                                            className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider px-6 py-3 rounded-full bg-white/[0.06] border border-white/[0.1] hover:bg-white/[0.14] hover:border-white/[0.22] transition-all duration-300 cursor-pointer"
                                         >
                                             View Certificate <ExternalLink size={11} />
                                         </a>
@@ -189,15 +193,15 @@ const Experience = () => {
                                         <Award size={14} className="text-gray-500 group-hover:text-white transition-colors duration-300" />
                                     </div>
                                     <div>
-                                        <div className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-gray-600 font-semibold mb-3">{cert.issuer}</div>
+                                        <div className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3">{cert.issuer}</div>
                                         <h4 className="text-sm md:text-base lg:text-lg font-black text-white leading-snug tracking-tight">{cert.title}</h4>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
-                                    <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-600 font-semibold">{cert.date}</span>
+                                    <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-semibold">{cert.date}</span>
                                     {cert.link && (
-                                        <a href={cert.link} target="_blank" rel="noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-[9px] md:text-[10px] font-bold text-white uppercase tracking-wider px-3.5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] hover:bg-white/[0.14] hover:border-white/[0.22] transition-all duration-300"
+                                        <a href={cert.link} onClick={(e) => { e.preventDefault(); playSuccess(); setSelectedPdf(cert.link); }}
+                                            className="inline-flex items-center gap-1.5 text-[9px] md:text-[10px] font-bold text-white uppercase tracking-wider px-3.5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] hover:bg-white/[0.14] hover:border-white/[0.22] transition-all duration-300 cursor-pointer"
                                         >
                                             View <ExternalLink size={8} />
                                         </a>
@@ -251,7 +255,7 @@ const Experience = () => {
                             className="relative z-10 text-center md:text-right shrink-0"
                         >
                             <div className="text-[4rem] md:text-[7rem] font-black text-white/[0.06] leading-none tracking-tighter select-none">2023</div>
-                            <div className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-600 font-semibold -mt-2">{education[0].year}</div>
+                            <div className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold -mt-2">{education[0].year}</div>
                         </motion.div>
                     </motion.div>
 
@@ -272,16 +276,23 @@ const Experience = () => {
                                     <span className="text-[10px] md:text-[11px] font-black text-white/[0.15] w-6 shrink-0">{String(idx + 2).padStart(2, '0')}</span>
                                     <div>
                                         <h4 className="text-sm md:text-base font-black text-gray-400 group-hover:text-gray-200 transition-colors duration-300 leading-tight">{edu.school}</h4>
-                                        <p className="text-[10px] md:text-xs text-gray-700 group-hover:text-gray-500 transition-colors duration-300 mt-0.5">{edu.degree} · {edu.grade}</p>
+                                        <p className="text-[10px] md:text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300 mt-0.5">{edu.degree} · {edu.grade}</p>
                                     </div>
                                 </div>
-                                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-700 group-hover:text-gray-500 transition-colors duration-300 font-semibold shrink-0">{edu.year}</span>
+                                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-gray-300 transition-colors duration-300 font-semibold shrink-0">{edu.year}</span>
                             </motion.div>
                         ))}
                     </div>
 
                 </div>
             </Section>
+
+            <PdfViewerModal
+                isOpen={!!selectedPdf}
+                onClose={() => setSelectedPdf(null)}
+                pdfUrl={selectedPdf}
+                title="Certificate Viewer"
+            />
         </div>
     );
 };

@@ -14,7 +14,19 @@
         background: #000000;
         color: #f5f5f7;
         letter-spacing: -0.015em;
+        cursor: none; /* Hide native cursor */
     }
+    
+    /* Ensure all interactive elements also hide native cursor */
+    a, button, input, textarea, [role="button"] {
+        cursor: none !important;
+    }
+    
+    /* Allow native cursor in iframes and modals since we can't track custom cursor inside them */
+    iframe, .pdf-viewer-modal {
+        cursor: auto !important;
+    }
+    
     ::selection { background: rgba(255, 255, 255, 0.2); color: #fff; }
 }
 
@@ -75,13 +87,19 @@
 
 
 /* ─── Custom Minimal Scrollbar ─── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 8px; margin: 4px; }
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+::-webkit-scrollbar-thumb:hover { 
+    background: rgba(255, 255, 255, 0.3); 
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
 
 /* ─── Brutalist Noise Grain Overlay ─── */
 body::after {

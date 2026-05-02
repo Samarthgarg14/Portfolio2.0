@@ -8,6 +8,8 @@ import { GithubSingleIcon, LinkedinIcon, GmailIcon, LeetcodeIcon } from '../comm
 import Section, { fadeUp as sectionFadeUp } from '../common/Section';
 import { portfolioData } from '../../data/portfolioData';
 import profileImg from '../../assets/images/profile.jpeg';
+import MagneticButton from '../common/MagneticButton';
+import PdfViewerModal from '../common/PdfViewerModal';
 
 /* ─── shared easing ──────────────────────────────────────── */
 const EASE = [0.25, 0.46, 0.45, 0.94];
@@ -22,6 +24,22 @@ const fadeUpItem = {
     show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { type: "spring", damping: 25, stiffness: 150 } }
 };
 
+const typingContainer = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.04,
+            delayChildren: 0.8 // wait for the fade up
+        }
+    }
+};
+
+const typingChar = {
+    hidden: { opacity: 0, display: 'none' },
+    show: { opacity: 1, display: 'inline' }
+};
+
 /* ─── spring config ──────────────────────────────────────── */
 const SPRING = { stiffness: 60, damping: 18, mass: 0.6 };
 
@@ -30,6 +48,7 @@ const Hero = () => {
     const [textIndex, setTextIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [isTextHovered, setIsTextHovered] = useState(false);
+    const [showResume, setShowResume] = useState(false);
     const sectionRef = useRef(null);
 
     /* ── mobile detection ── */
@@ -132,37 +151,48 @@ const Hero = () => {
                         </motion.div>
 
                         <motion.div variants={fadeUpItem} className="mt-8 md:mt-12 max-w-xl">
-                            <p className="text-white/60 text-sm md:text-lg tracking-[0.2em] font-medium leading-relaxed uppercase border-l-2 border-white/10 pl-6">
-                                Turning complex code into <span className="text-white font-black italic">elegant interaction</span>
+                            <motion.p 
+                                variants={typingContainer} 
+                                initial="hidden" 
+                                animate="show"
+                                className="text-white/60 text-sm md:text-lg tracking-[0.2em] font-medium leading-relaxed uppercase border-l-2 border-white/10 pl-6"
+                            >
+                                {Array.from("Turning complex code into ").map((char, index) => (
+                                    <motion.span key={index} variants={typingChar}>{char}</motion.span>
+                                ))}
+                                <span className="text-white font-black italic">
+                                    {Array.from("elegant interaction").map((char, index) => (
+                                        <motion.span key={index + 100} variants={typingChar}>{char}</motion.span>
+                                    ))}
+                                </span>
                                 <br />
-                                <span className="text-[10px] md:text-xs mt-2 block font-black border border-white/10 w-fit px-3 py-1 rounded-full uppercase tracking-[0.3em] bg-white text-black">SOFTWARE ENGINEER</span>
-                            </p>
+                                <motion.span 
+                                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+                                    className="text-[10px] md:text-xs mt-2 block font-black border border-white/10 w-fit px-3 py-1 rounded-full uppercase tracking-[0.3em] bg-white text-black"
+                                >
+                                    SOFTWARE ENGINEER
+                                </motion.span>
+                            </motion.p>
                         </motion.div>
 
                         <motion.div
                             variants={fadeUpItem}
                             className="mt-10 md:mt-16 flex flex-wrap gap-4"
                         >
-                            <motion.a
+                            <MagneticButton
                                 href="#projects"
-                                whileHover={{ scale: 1.05, x: 5 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-white text-black px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-xs tracking-widest uppercase hover:bg-gray-200 transition-all shadow-2xl flex items-center gap-3"
+                                className="bg-white text-black px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-xs tracking-widest uppercase hover:bg-gray-200 transition-colors shadow-2xl flex items-center gap-3"
                             >
                                 View Projects
                                 <ArrowRight size={14} />
-                            </motion.a>
-                            <motion.a
-                                href={personal.resume}
-                                target="_blank"
-                                rel="noreferrer"
-                                whileHover={{ scale: 1.05, x: 5 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="glass border-white/20 px-8 md:px-10 py-3 md:py-4 rounded-full text-white font-bold text-xs tracking-widest uppercase hover:bg-white/10 transition-all flex items-center gap-3 shadow-2xl"
+                            </MagneticButton>
+                            <MagneticButton
+                                onClick={() => setShowResume(true)}
+                                className="glass border-white/20 px-8 md:px-10 py-3 md:py-4 rounded-full text-white font-bold text-xs tracking-widest uppercase hover:bg-white/10 transition-colors flex items-center gap-3 shadow-2xl"
                             >
                                 Resume
                                 <Download size={14} />
-                            </motion.a>
+                            </MagneticButton>
                         </motion.div>
 
                         {/* Social Links - Vertical on Tablet/Desktop, Horizontal on Mobile */}
@@ -204,6 +234,8 @@ const Hero = () => {
                             <img
                                 src={profileImg}
                                 alt={personal.name}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover object-[50%_12%] contrast-[1.05] transition-all duration-1000 group-hover:scale-110"
                             />
 
@@ -227,6 +259,13 @@ const Hero = () => {
                     className="w-px h-8 bg-gradient-to-b from-primary/60 to-transparent rounded-full"
                 />
             </motion.div>
+            {/* Resume Viewer Modal */}
+            <PdfViewerModal 
+                isOpen={showResume} 
+                onClose={() => setShowResume(false)} 
+                pdfUrl={personal.resume} 
+                title="My Resume" 
+            />
         </section>
     );
 };

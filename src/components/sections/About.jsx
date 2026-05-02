@@ -20,7 +20,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="text-xs uppercase tracking-[0.3em] text-gray-600 font-semibold text-center mb-8"
+                className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold text-center mb-8"
             >
                 About Me
             </motion.p>
@@ -41,7 +41,7 @@ const About = () => {
                     </p>
                     <div className="mt-5 flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-white/40" />
-                        <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-600 font-semibold">Samarth Garg</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold">Samarth Garg</span>
                     </div>
                 </motion.div>
 
@@ -54,8 +54,8 @@ const About = () => {
                     variants={cardVariants}
                     className="md:col-span-4 rounded-[2.5rem] bg-white/[0.04] backdrop-blur-md border border-white/[0.07] p-8 md:p-10 flex flex-col justify-center items-center text-center group hover:bg-white/[0.07] transition-all duration-500"
                 >
-                    <div className="text-5xl md:text-7xl font-black text-white mb-2 group-hover:scale-110 transition-transform duration-500 leading-none">50K+</div>
-                    <div className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-500">Rows Trained</div>
+                    <div className="text-5xl md:text-7xl font-black text-white mb-2 group-hover:scale-110 transition-transform duration-500 leading-none">100+</div>
+                    <div className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-400">Problems solved across different platforms</div>
                 </motion.div>
 
                 {/* ── Card 3: Projects stat — 4 cols ── */}
@@ -68,7 +68,7 @@ const About = () => {
                     className="md:col-span-4 rounded-[2.5rem] bg-white/[0.04] backdrop-blur-md border border-white/[0.07] p-8 md:p-10 flex flex-col justify-center items-center text-center group hover:bg-white/[0.07] transition-all duration-500"
                 >
                     <div className="text-5xl md:text-7xl font-black text-white mb-2 group-hover:scale-110 transition-transform duration-500 leading-none">{portfolioData.personal.stats.projects}</div>
-                    <div className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-500">Projects Built</div>
+                    <div className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-400">Projects Built</div>
                 </motion.div>
 
                 {/* ── Card 4: Abstract Typography — 8 cols ── */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import SmoothScroll from './components/common/SmoothScroll';
 import Loader from './components/common/Loader';
+import AmbientGlow from './components/common/AmbientGlow';
 import Home from './pages/Home';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
     return (
         <SmoothScroll>
+            <AmbientGlow />
             <AnimatePresence>
                 {loading && <Loader />}
             </AnimatePresence>

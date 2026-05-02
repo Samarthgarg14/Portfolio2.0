@@ -89,6 +89,7 @@ const Projects = () => {
                     <motion.button
                         whileHover={{ scale: 1.1, x: -4 }}
                         whileTap={{ scale: 0.9 }}
+                        aria-label="Scroll Left"
                         className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
                         onClick={() => {
                             const container = document.getElementById('project-slider');
@@ -103,6 +104,7 @@ const Projects = () => {
                     <motion.button
                         whileHover={{ scale: 1.1, x: 4 }}
                         whileTap={{ scale: 0.9 }}
+                        aria-label="Scroll Right"
                         className="w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white"
                         onClick={() => {
                             const container = document.getElementById('project-slider');
@@ -163,6 +165,8 @@ const Projects = () => {
                                             <motion.img
                                                 src={project.image}
                                                 alt={project.title}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 blur-[2px] group-hover:blur-0"
                                                 whileHover={{ scale: 1.05 }}
                                             />

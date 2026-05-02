@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp, Heart } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { playClick } from '../../utils/sounds';
 
 const Footer = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const scrollToTop = () => {
+        playClick();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 

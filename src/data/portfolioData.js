@@ -84,7 +84,7 @@ export const portfolioData = {
             title: "Phishing Detection AI System",
             category: "ML/Security",
             image: phishingImg, // Placeholder or add new asset
-            date: "Mar’ 26",
+            date: "Mar 2026",
             summary: "Real-time phishing detection system using supervised learning on 30+ URL & HTML features.",
             details: [
                 "Built a real-time phishing detection system using supervised learning on 30+ URL & HTML features and dataset with 11055 records.",
@@ -156,7 +156,7 @@ export const portfolioData = {
             title: "Lok Sabha Elections 2024 Dashboard",
             category: "Dashboards",
             image: loksabhaImg,
-            date: "2024",
+            date: "Apr 2024",
             summary: "Interactive Excel dashboard with KPIs and constituency insights.",
             details: [
                 "Built an interactive Excel dashboard showcasing party performance, turnout, and demographics across 543 constituencies.",
