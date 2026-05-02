@@ -14,15 +14,9 @@
         background: #000000;
         color: #f5f5f7;
         letter-spacing: -0.015em;
-        cursor: none; /* Hide native cursor */
     }
     
-    /* Ensure all interactive elements also hide native cursor */
-    a, button, input, textarea, [role="button"] {
-        cursor: none !important;
-    }
-    
-    /* Allow native cursor in iframes and modals since we can't track custom cursor inside them */
+    /* Ensure native cursor in iframes and modals */
     iframe, .pdf-viewer-modal {
         cursor: auto !important;
     }

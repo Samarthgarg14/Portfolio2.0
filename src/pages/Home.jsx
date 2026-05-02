@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ScrollProgress from '../components/common/ScrollProgress';
-import CustomCursor from '../components/common/CustomCursor';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import CommandPalette from '../components/layout/CommandPalette';
@@ -31,7 +30,6 @@ const Home = () => {
             className="min-h-screen bg-dark"
         >
             <ScrollProgress />
-            <CustomCursor />
             <Navbar />
 
             <main>
